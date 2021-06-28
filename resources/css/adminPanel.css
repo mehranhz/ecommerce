@@ -1,0 +1,9 @@
+body{
+    direction: rtl;
+}
+main{
+    width: 75% !important;
+     position: fixed;
+    left: 0;
+    top: 0;
+}

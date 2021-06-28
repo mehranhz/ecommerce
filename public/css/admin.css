@@ -1,0 +1,100 @@
+/* side bar container */
+aside{
+    background-color: #323235 !important;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 25% !important;
+    min-height: 100vh;
+}
+
+ /* users info on sidebar*/
+.sidebar-user{
+    background-color: #ffffff;
+    display: flex;
+    padding: 1rem;
+    margin: .5rem 0;
+}
+
+/* profile image */
+.sidebar-profile-img img{
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 50%;
+}
+
+/* side bar items */
+.sidebar-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: .5rem 0;
+    color: #ffffff;
+    background-color: #444444;
+    max-width: 100%;
+}
+.sidebar-item-title{
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 24px;
+}
+
+/* dropdown link */
+.dd-link{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* dropdown container */
+.sidebar-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100% ;
+}
+
+.sidebar-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #444444;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.sidebar-dropdown-content a {
+    color: #ffffff;
+    padding: 1rem 25% 1rem 0rem;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar-dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color:#000000
+}
+
+/* displays dropdown by hovering on parent */
+.sidebar-dropdown:hover .sidebar-dropdown-content {
+    display: block;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    transition: 1s;
+    position: relative;
+    bottom: 0;
+}
+
+body{
+    direction: rtl;
+}
+main{
+    width: 75% !important;
+     position: fixed;
+    left: 0;
+    top: 0;
+}
+
+
+
