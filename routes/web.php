@@ -17,6 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test',function (){
-    return 'gh';
-});
+Route::get('/admin/panel','App\Http\Controllers\Admin\HomeController@index');
