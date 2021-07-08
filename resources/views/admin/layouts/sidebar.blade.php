@@ -23,28 +23,33 @@
             <a href="#">...</a>
         </div>
 
+
+    </div>
+    @foreach(Module::collections() as $module)
+        @if(View::exists("{$module->getLowerName()}::admin.sidebar-item"))
+            @include("{$module->getLowerName()}::admin.sidebar-item")
+        @endif
+    @endforeach
+
+
+    <div class="sidebar-dropdown">
+        <div class="sidebar-item">
+            <a href="" class="sidebar-item-title">ماژول ها</a>
+            <a href="" class="dd-link">...</a>
+        </div>
+
+        <div class="sidebar-dropdown-content">
+            <ul>
+                @foreach(Module::collections() as $module)
+                    @if(View::exists("{$module->getLowerName()}::admin.setting"))
+                        @include("{$module->getLowerName()}::admin.setting")
+                    @endif
+                @endforeach
+            </ul>
+
+        </div>
+
+
     </div>
 
-
-
-
-    <div class="sidebar-item">
-        <a href="" class="sidebar-item-title">کاربران</a>
-    </div>
-
-    <div class="sidebar-item">
-        <a href="" class="sidebar-item-title">پرداخت ها</a>
-    </div>
-
-    <div class="sidebar-item">
-        <a href="" class="sidebar-item-title">سفارشات</a>
-    </div>
-
-    <div class="sidebar-item">
-        <a href="" class="sidebar-item-title">محصولات</a>
-    </div>
-
-    <div class="sidebar-item">
-        <a href="" class="sidebar-item-title">محصولات</a>
-    </div>
 </aside>

@@ -1,12 +1,13 @@
 <?php
 
-namespace Modules\User\Http\Controllers\Admin;
+namespace Modules\Main\Http\Controllers\Admin;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Nwidart\Modules\Facades\Module;
 
-class UserController extends Controller
+class ModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user::index');
+        $modules = Module::all();
+        return view('main::admin.modules.index',compact('modules'));
     }
 
     /**
@@ -23,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user::create');
+        return view('main::create');
     }
 
     /**
@@ -43,7 +45,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user::show');
+        return view('main::show');
     }
 
     /**
@@ -53,7 +55,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user::edit');
+        return view('main::edit');
     }
 
     /**

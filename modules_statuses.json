@@ -2,5 +2,6 @@
     "Cart": true,
     "User": true,
     "ProductM": true,
-    "Product": true
+    "Product": true,
+    "Main": true
 }
