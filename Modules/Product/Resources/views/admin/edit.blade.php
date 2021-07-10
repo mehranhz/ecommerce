@@ -11,42 +11,44 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('admin.products.store')}}" method="post">
+            <form action="{{route('admin.products.update',['product'=>$product->id])}}" method="post">
                 @csrf
-
+                @method('PUT')
                 <div class="form-group">
                     <label for="title">عنوان</label>
-                    <input class="form-control" type="text" name="title">
+                    <input class="form-control" type="text" name="title" value="{{$product->title}}">
                 </div>
 
                 <div class="form-group input-group">
                     <label for="basePrice">قیمت پایه</label>
-                    <input class="form-control" type="number" name="basePrice">
+                    <input class="form-control" type="number" name="basePrice" value="{{$product->basePrice}}">
                     <label for="discount">تخفیف</label>
-                    <input class="form-control" type="number" name="discount" value="0">
+                    <input class="form-control" type="number" name="discount" value="{{$product->discount}}">
                     <label for="inventory">موجودی</label>
-                    <input class="form-control" type="number" name="inventory" value="0">
+                    <input class="form-control" type="number" name="inventory" value="{{$product->inventory}}">
                 </div>
 
 
                 <div class="form-group">
                     <label for="description">توضیح کوتاه</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{$product->description}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="review"> نقد و بررسی</label>
-                    <textarea class="form-control" name="review" id="review" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="review" id="review" cols="30" rows="10">{{$product->review}}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="thumbnail">تصویر شاخص</label>
                     <div class="input-group" style="direction: ltr">
                         <input type="text" id="image_label" class="form-control" name="thumbnail"
-                               accept=".jpg,.png,.jpeg">
+                               accept=".jpg,.png,.jpeg" value="{{$product->thumbnail}}">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="button-image">انتخاب</button>
                         </div>
+
                     </div>
+                    <img class="pd-v-1" src="{{$product->thumbnail}}" alt="" style="width: 300px">
                 </div>
                 <script>
                     CKEDITOR.replace('review', {filebrowserImageBrowseUrl: '/file-manager/ckeditor'});

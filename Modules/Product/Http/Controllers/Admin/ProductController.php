@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\Product\Entities\Product;
+use Modules\Product\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -16,8 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('product::admin.index',compact('products'));
+        $products = Product::paginate(5);
+        return view('product::admin.index', compact('products'));
     }
 
     /**
@@ -34,7 +35,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $product = new Product();
         $product->title = $request->title;
@@ -63,9 +64,9 @@ class ProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        return view('product::edit');
+        return view('product::admin.edit',compact('product'));
     }
 
     /**
@@ -74,9 +75,10 @@ class ProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request,Product $product)
     {
-        //
+        $product->update($request->all());
+        return redirect(route('admin.products.index'));
     }
 
     /**
@@ -84,8 +86,9 @@ class ProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect(route('admin.products.index'));
     }
 }

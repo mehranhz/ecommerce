@@ -25,7 +25,7 @@
                             {{$product->id}}
                         </td>
                         <td>
-                            {{$product->title}}
+                            <a href="{{route('admin.products.show',['product'=>$product->id])}}">{{$product->title}}</a>
                         </td>
                         <td>
                             {{$product->basePrice}}
@@ -42,17 +42,51 @@
                         <td>
                             <img src="{{$product->thumbnail}}" alt="" style="width: 100px">
                         </td>
-                        <td >
-                           <div class="btn-group " style="direction: ltr">
-                               <a href="" class="btn btn-sm btn-warning">ویرایش</a>
-                               <a href="" class="btn btn-sm btn-danger">حذف</a>
-                           </div>
+                        <td>
+                            <div class="btn-group " style="direction: ltr">
+                                <a href="{{route('admin.products.edit',['product'=>$product->id])}}" class="btn btn-sm btn-warning">ویرایش</a>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#myModal">حذف
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <p>حذف محصول؟</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{route('admin.products.destroy',['product'=>$product->id])}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal">
+                                                            انصراف
+                                                        </button>
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            حذف
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </td>
                     </tr>
 
                 @endforeach
                 </tbody>
             </table>
+
+
+        </div>
+        <div class="container" style="direction: ltr">
+            {{$products->links()}}
         </div>
     </section>
 @endsection
