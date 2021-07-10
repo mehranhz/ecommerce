@@ -10,26 +10,16 @@
         </div>
     </div>
 
-
-    <div class="sidebar-dropdown">
-        <div class="sidebar-item">
-            <a href="" class="sidebar-item-title">محصولات</a>
-            <a href="" class="dd-link">...</a>
-        </div>
-
-        <div class="sidebar-dropdown-content">
-            <a href="#">لیست محصولات</a>
-            <a href="#">دسته بندی ها</a>
-            <a href="#">...</a>
-        </div>
-
-
-    </div>
-    @foreach(Module::collections() as $module)
-        @if(View::exists("{$module->getLowerName()}::admin.sidebar-item"))
-            @include("{$module->getLowerName()}::admin.sidebar-item")
-        @endif
-    @endforeach
+    <ul class="sidebar-menu">
+        <li class="sidebar-item">
+            <a href="{{route('admin.fileManager')}}" class="sidebar-item-title">فایل منیجر</a>
+        </li>
+        @foreach(Module::collections() as $module)
+            @if(View::exists("{$module->getLowerName()}::admin.sidebar-item"))
+                @include("{$module->getLowerName()}::admin.sidebar-item")
+            @endif
+        @endforeach
+    </ul>
 
 
     <div class="sidebar-dropdown">

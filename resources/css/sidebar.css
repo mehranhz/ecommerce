@@ -4,8 +4,9 @@ aside{
     position: fixed;
     right: 0;
     top: 0;
-    width: 25% !important;
+    width: 20% !important;
     min-height: 100vh;
+    direction: rtl !important;
 }
 
  /* users info on sidebar*/
@@ -37,7 +38,7 @@ aside{
 .sidebar-item-title{
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 24px;
+    font-size: 16px;
 }
 
 /* dropdown link */
@@ -82,4 +83,13 @@ aside{
     transition: 1s;
     position: relative;
     bottom: 0;
+}
+.sidebar-menu{
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.sidebar-menu li{
+    padding: .5rem 1rem;
+    border-bottom: 1px solid rgba(203, 203, 203, 0.63);
 }

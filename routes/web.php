@@ -17,7 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/panel','App\Http\Controllers\Admin\HomeController@index');
+Route::get('/admin/panel','App\Http\Controllers\Admin\HomeController@index')->name('admin.panel');
+Route::get('/admin/filemanager','App\Http\Controllers\Admin\HomeController@fileManager')->name('admin.fileManager');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

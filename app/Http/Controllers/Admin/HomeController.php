@@ -10,4 +10,7 @@ class HomeController extends Controller
     public function index(){
         return view('admin.panel');
     }
+    public function fileManager(){
+        return view('admin.filemanager');
+    }
 }

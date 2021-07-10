@@ -1,3 +1,3 @@
-<div class="sidebar-item">
+<li class="">
     <a href="" class="sidebar-item-title">سبد خرید</a>
-</div>
+</li>

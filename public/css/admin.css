@@ -4,8 +4,9 @@ aside{
     position: fixed;
     right: 0;
     top: 0;
-    width: 25% !important;
+    width: 20% !important;
     min-height: 100vh;
+    direction: rtl !important;
 }
 
  /* users info on sidebar*/
@@ -37,7 +38,7 @@ aside{
 .sidebar-item-title{
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 24px;
+    font-size: 16px;
 }
 
 /* dropdown link */
@@ -85,16 +86,44 @@ aside{
     position: relative;
     bottom: 0;
 }
+.sidebar-menu{
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.sidebar-menu li{
+    padding: .5rem 1rem;
+    border-bottom: 1px solid rgba(203, 203, 203, 0.63);
+}
 
+@font-face {
+    font-family: sans;
+    src: url(/fonts/snas.ttf?42ba4d41748dafb22f32dcf0714ade61);
+}
 body{
-    direction: rtl;
+    font-family: sans !important;
+    text-align: right !important;
+    font-family: 'IranSans';
+    font-size: 16px;
 }
 main{
-    width: 75% !important;
-     position: fixed;
+    direction: rtl !important;
+    width: 80% !important;
     left: 0;
     top: 0;
 }
+.pd-v-1{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.right-aligned{
+    text-align: right;
+}
+.control-container{
+    padding: 2rem;
+}
+
 
 
 
