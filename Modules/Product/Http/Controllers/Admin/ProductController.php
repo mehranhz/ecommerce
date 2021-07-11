@@ -54,9 +54,9 @@ class ProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return view('product::show');
+        return view('product::admin.show',compact('product'));
     }
 
     /**

@@ -3,5 +3,6 @@
     "User": true,
     "ProductM": true,
     "Product": true,
-    "Main": true
+    "Main": true,
+    "Category": true
 }
