@@ -9,8 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = ['title','serial','tags','parent','user'];
+
     protected static function newFactory()
     {
         return \Modules\Category\Database\factories\CategoryFactory::new();

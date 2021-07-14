@@ -5,6 +5,8 @@ namespace Modules\Category\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\Category\Entities\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category::admin.index');
+        $categories = Category::paginate(10);
+        return view('category::admin.index', compact('categories'));
     }
 
     /**
@@ -23,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category::create');
+        $categories = Category::all();
+        return view('category::admin.create', compact('categories'));
     }
 
     /**
@@ -33,7 +37,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255'
+        ]);
+        $category = new Category();
+        $category->title = $request->title;
+        $category->tags = $request->tags;
+        $category->user = Auth::user()->id;
+        $category->save();
+        if (isset($request->parent)) {
+            $category->parent = $request->parent;
+            $category->update([
+                'serial' => Category::find($request->parent)->serial . '.' . $category->id
+            ]);
+        } else {
+            $category->update([
+                'serial' => $category->id
+            ]);
+        }
+
+        return redirect(route('admin.categories.index'));
     }
 
     /**
@@ -51,9 +74,10 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('category::edit');
+        $categories = Category::all();
+        return view('category::admin.edit', compact('category', 'categories'));
     }
 
     /**
@@ -62,9 +86,16 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->title = $request->title;
+        $category->tags = $request->tags;
+        if ($category->parent !== $request->parent) {
+            $category->serial = Category::find($request->parent)->serial . '.' . $category->id;
+        }
+        $category->parent = $request->parent;
+        $category->save();
+        return redirect(route('admin.categories.index'));
     }
 
     /**
@@ -72,8 +103,9 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect(route('admin.categories.index'));
     }
 }

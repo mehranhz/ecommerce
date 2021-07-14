@@ -1,3 +1,3 @@
 <li class="">
-    <a href="" class="sidebar-item-title">دسته بندی محصولات</a>
+    <a href="{{route('admin.categories.index')}}" class="sidebar-item-title">دسته بندی محصولات</a>
 </li>

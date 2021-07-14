@@ -17,8 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/panel','App\Http\Controllers\Admin\HomeController@index')->name('admin.panel');
-Route::get('/admin/filemanager','App\Http\Controllers\Admin\HomeController@fileManager')->name('admin.fileManager');
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->namespace('App\\http\\Controllers\\Admin')->group(function (){
+    Route::get('panel','HomeController@index')->name('panel');
+    Route::get('filemanager','HomeController@fileManager')->name('fileManager');
+});
+
+
 
 Auth::routes();
 
