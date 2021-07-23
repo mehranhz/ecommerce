@@ -1,28 +1,68 @@
 @font-face {
-    font-family: sans;
-    src: url(snas.ttf);
+    font-family: BNazanin;
+    src: url("/fonts/BNazanin.woff");
 }
-body{
-    font-family: sans !important;
+
+body {
+    font-family: BNazanin !important;
     text-align: right !important;
     font-family: 'IranSans';
     font-size: 16px;
 }
-main{
+
+main {
     direction: rtl !important;
     width: 80% !important;
     left: 0;
     top: 0;
 }
-.pd-v-1{
+
+.pd-v-1 {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
-.right-aligned{
+.pd-v-3 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.pd-h-1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.pd-h-3 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.right-aligned {
     text-align: right;
 }
-.control-container{
+
+.control-container {
     padding: 2rem;
 }
 
+.product-header {
+    padding: 2rem;
+}
+
+.dark-theme {
+    background-color: #323235;
+}
+.light-text{
+    color: #ffffff !important;
+}
+.light-hr{
+    background-color: #ffffff;
+}
+.h-100{
+    min-height: 100vh;
+}
+@media screen and (max-width: 550px) {
+    main {
+        width: 100% !important;
+    }
+}

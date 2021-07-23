@@ -45,6 +45,7 @@ class ProductController extends Controller
         $product->thumbnail = $request->thumbnail;
         $product->user_id = Auth::user()->id;
         $product->available = $request->inventory > 0;
+        $product->specifications = $request->specifications;
         $product->save();
         return redirect(route('admin.products.index'));
     }
@@ -56,6 +57,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+
+        $product->specifications = array_map(function ($item){
+            return explode(':',$item);
+        },explode("\n",$product->specifications));
         return view('product::admin.show',compact('product'));
     }
 

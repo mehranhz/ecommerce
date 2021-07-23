@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->integer('inventory')->default(0);
             $table->boolean('available')->default(false);
 
-
+            $table->text('specifications')->nullable();
             $table->integer('rate')->default(0);
             $table->timestamps();
 

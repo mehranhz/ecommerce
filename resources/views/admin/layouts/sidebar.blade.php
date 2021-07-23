@@ -1,4 +1,4 @@
-<aside>
+<aside class="d-none d-md-block">
 
     <div class="sidebar-user">
         <div class="sidebar-profile-img">

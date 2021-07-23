@@ -50,6 +50,15 @@
                     </div>
                     <img class="pd-v-1" src="{{$product->thumbnail}}" alt="" style="width: 300px">
                 </div>
+                <div class="form-group">
+                    <h3>جدول مشخصات</h3>
+                    <label for="key">کلید</label>
+                    <input type="text" id="key">
+                    <lable>مقدار</lable>
+                    <input type="text" id="value">
+                    <a class=" btn btn-sm btn-outline-info" onclick="addItem()" >افزودن</a>
+                    <textarea name="specifications"  cols="30" rows="10" class="form-control" id="specifications">{{$product->specifications}}</textarea>
+                </div>
                 <script>
                     CKEDITOR.replace('review', {filebrowserImageBrowseUrl: '/file-manager/ckeditor'});
                 </script>
@@ -70,6 +79,15 @@
         // set file link
         function fmSetLink($url) {
             document.getElementById('image_label').value = $url;
+        }
+    </script>
+    <script>
+        function addItem(){
+            let key = document.getElementById('key');
+            let value = document.getElementById('value');
+            let list = document.getElementById('specifications');
+            let text = key.value + ' : ' + value.value;
+            list.value += text+'\r\n';
         }
     </script>
 @endsection

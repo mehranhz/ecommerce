@@ -23,6 +23,7 @@
                 <div class="form-group">
                     <label for="parent">دسته بندی مادر</label>
                     <select name="parent" id="parent" class="form-control">
+                        <option value="">هیچکدام</option>
                         @foreach($categories as $parent)
                             <option value="{{$parent->id}}"  {{$category->parent == $parent->id ? 'selected' :''}} >{{$parent->title}}</option>
                         @endforeach
