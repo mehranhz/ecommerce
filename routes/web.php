@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {});
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->namespace('App\\http\\Controllers\\Admin')->group(function (){
     Route::get('panel','HomeController@index')->name('panel');
@@ -31,3 +29,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

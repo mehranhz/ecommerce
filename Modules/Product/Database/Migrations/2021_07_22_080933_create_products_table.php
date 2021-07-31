@@ -31,6 +31,10 @@ class CreateProductsTable extends Migration
             $table->integer('rate')->default(0);
             $table->timestamps();
 
+            $table->string('type')->default('product');
+            $table->unsignedBigInteger('product_id')->nullable();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

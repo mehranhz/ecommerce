@@ -4,5 +4,6 @@
     "ProductM": true,
     "Product": true,
     "Main": true,
-    "Category": true
+    "Category": true,
+    "Order": true
 }

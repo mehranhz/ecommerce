@@ -4,6 +4,7 @@ namespace Modules\Product\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User;
 
 class Product extends Model
 {
@@ -14,5 +15,13 @@ class Product extends Model
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\ProductFactory::new();
+    }
+
+    public function parent(){
+        return Product::find($this->product_id);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

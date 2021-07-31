@@ -3,4 +3,5 @@
 <main class="" style="min-height: 100vh">
 @yield('page')
 </main>
+@yield('script')
 @include('admin.layouts.footer')

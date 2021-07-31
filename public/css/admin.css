@@ -159,6 +159,9 @@ main {
 .h-100{
     min-height: 100vh;
 }
+.accessory-form{
+    padding: 0 2rem;
+}
 @media screen and (max-width: 550px) {
     main {
         width: 100% !important;

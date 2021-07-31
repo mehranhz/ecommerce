@@ -17,10 +17,10 @@ class CreateVarietiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent');
             $table->foreign('parent')->references('id')->on('products')->onDelete('cascade');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('specifications');
             $table->integer('inventory')->default(0);
-            $table->unsignedBigInteger('price')->nullable();
+            $table->unsignedBigInteger('basePrice')->nullable();
             $table->integer('discount');
             $table->timestamps();
         });

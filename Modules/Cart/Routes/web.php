@@ -12,5 +12,8 @@
 */
 
 Route::prefix('cart')->group(function() {
-    Route::get('/', 'CartController@index');
+    Route::get('/', 'CartController@index')->name('index');
+    Route::post('/add/{id}','CartController@add')->name('add');
+    Route::patch('/quantity/change','CartController@quantityChange');
+    Route::delete('/remove/{item}','CartController@removeItem')->name('remove.item');
 });

@@ -1,3 +1,3 @@
 <li class="">
-    <a href="" class="sidebar-item-title">سبد خرید</a>
+    <a href="{{route('cart.index')}}" class="sidebar-item-title">سبد خرید</a>
 </li>

@@ -29,6 +29,7 @@
                 </div>
 
 
+
                 <div class="form-group">
                     <label for="description">توضیح کوتاه</label>
                     <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{old('description')}}</textarea>
@@ -85,7 +86,7 @@
             let key = document.getElementById('key');
             let value = document.getElementById('value');
             let list = document.getElementById('specifications');
-            let text = key.value + ' : ' + value.value;
+            let text = key.value + ':' + value.value;
             list.value += text+'\r\n';
         }
     </script>

@@ -9,8 +9,8 @@ class Variety extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = ['basePrice','discount','inventory','specifications','parent'];
+
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\VarietyFactory::new();
