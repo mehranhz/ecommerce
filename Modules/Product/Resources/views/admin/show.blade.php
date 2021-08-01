@@ -35,7 +35,7 @@
 
                         <div class="row">
                             <div class="col-xl-8">
-                                @if(Cart::count($product) < $product->inventory)
+                                @if((is_null(Cart::count($product))) || (Cart::count($product) < $product->inventory))
                                     <form action="{{route('cart.add',['id'=>$product->id])}}" method="post">
                                         @csrf
                                         <input type="hidden" name="type" value="product">

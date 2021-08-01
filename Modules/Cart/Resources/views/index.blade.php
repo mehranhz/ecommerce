@@ -54,28 +54,34 @@
             });
         @endphp
         <h3>قیمت کل {{$total}}</h3>
+        @if(Cart::all()->count()>0)
+            <form action="{{route('cart.register')}}" method="post">
+                @csrf
+                <input type="submit" class="btn btn-md btn-success" value="تکمیل خرید">
+            </form>
+        @endif
     </div>
 @section('script')
     <script>
-        function changeQuantity(event, id , cartName = null) {
+        function changeQuantity(event, id, cartName = null) {
 
             $.ajaxSetup({
-                headers : {
-                    'X-CSRF-TOKEN' : document.head.querySelector('meta[name="csrf-token"]').content,
-                    'Content-Type' : 'application/json'
+                headers: {
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json'
                 }
             })
             //
             $.ajax({
-                type : 'POST',
-                url : '/cart/quantity/change',
-                data : JSON.stringify({
-                    id : id ,
-                    quantity : event.target.value,
+                type: 'POST',
+                url: '/cart/quantity/change',
+                data: JSON.stringify({
+                    id: id,
+                    quantity: event.target.value,
                     // cart : cartName,
-                    _method : 'patch'
+                    _method: 'patch'
                 }),
-                success : function(res) {
+                success: function (res) {
                     console.log(res)
                     location.reload();
                 }

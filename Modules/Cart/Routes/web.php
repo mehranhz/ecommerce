@@ -17,3 +17,7 @@ Route::prefix('cart')->group(function() {
     Route::patch('/quantity/change','CartController@quantityChange');
     Route::delete('/remove/{item}','CartController@removeItem')->name('remove.item');
 });
+
+Route::middleware('auth')->prefix('cart')->group(function (){
+    Route::post('/register','CartController@register')->name('register');
+});

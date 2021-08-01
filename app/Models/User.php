@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Order\Entities\Order;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,13 @@ class User extends Authenticatable
         'phone',
         'password',
     ];
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+    public function addresses(){
+        return $this->hasMany(Address::class);
+    }
 
     /**
      * The attributes that should be hidden for arrays.

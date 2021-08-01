@@ -5,9 +5,23 @@ namespace Modules\Order\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Order\Entities\Order;
 
 class OrderController extends Controller
 {
+
+
+    public function addAddress(Request $request,Order $order){
+
+        $order->address_id = $request->address_option;
+        $order->save();
+
+        return redirect(route('admin.order.payment',['order'=>$order->id]));
+    }
+
+    public function payment(Order $order){
+        return view('order::payment',compact('order'));
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -41,9 +55,9 @@ class OrderController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        return view('order::show');
+        return view('order::show',compact('order'));
     }
 
     /**

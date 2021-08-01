@@ -5,7 +5,9 @@ namespace Modules\Cart\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Cart\Services\Cart;
+use Modules\Order\Entities\Order;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variety;
 
@@ -148,5 +150,38 @@ class CartController extends Controller
     public function removeItem($item){
         Cart::delete($item);
         return back();
+    }
+
+    public function register(Request $request){
+        $prevOrders = Order::where('status','unpaid')->where('user_id',auth()->user()->id)->get();
+        foreach ($prevOrders as $prevOrder){
+            $prevOrder->delete();
+        }
+
+
+        $cart = Cart::all();
+        if ($cart->count()){
+            $price = $cart->sum(function ($item){
+                $type = isset($item['Variety'])?'Variety':'Product';
+                return $item[$type]->basePrice * $item['quantity'];
+            });
+            $order = auth()->user()->orders()->create([
+                'status'=>'unpaid',
+                'price'=>$price,
+            ]);
+
+
+                DB::table('item_order')->insertOrIgnore((array)$cart->map(function ($cartItem) use ($order):array {
+                    $itemType = isset($cartItem['Variety'])?'Variety':'Product';
+                    return [
+                        'order_id'=>$order->id,
+                        'item_id'=>$cartItem[$itemType]->id,
+                        'item_type'=>$itemType,
+                        'quantity'=>$cartItem["quantity"]
+                        ];
+                })->toArray());
+                return redirect(route('order.show',['order'=>$order->id]));
+
+        }
     }
 }
