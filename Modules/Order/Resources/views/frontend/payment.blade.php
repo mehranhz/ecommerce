@@ -1,14 +1,18 @@
-@extends('admin.panel')
-@section('page')
+@extends('frontend.layouts.page')
+@section('content')
     <div class="container pd-v-3">
         <div class="row">
             <div class="col-lg-6">
-                <h3>تحویل سفارش به : {{$order->address->receiver}}</h3>
+{{--                <h3>تحویل سفارش به : {{$order->address->receiver}}</h3>--}}
                 <h3>محل تحویل سفارش : {{$order->address->address}}</h3>
             </div>
             <div class="col-lg-6">
                 <h3>مبلغ سفارش : {{$order->price}}</h3>
-                <a href="" class="btn btn-md btn-success">پرداخت</a>
+                <form action="{{route('payment.add')}}" method="post">
+                    @csrf
+                    <input type="hidden" value="{{$order->id}}" name="order">
+                    <input type="submit" class="btn btn-md btn-success" value="پرداخت">
+                </form>
             </div>
         </div>
         <div class="card pd-v-1 pd-h-1" style="margin-top: 1rem">
@@ -23,5 +27,6 @@
                 <input type="submit" class="btn btn-success" value="اعمال">
             </div>
         </div>
-
+        <script src="{{asset('js/app.js')}}"></script>
+    @include('sweet::alert')
 @endsection

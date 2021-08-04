@@ -21,6 +21,11 @@ class Product extends Model
         return Product::find($this->product_id);
     }
 
+    public function varieties(){
+        $varieties= Variety::where('parent',$this->id)->get();
+        return $varieties;
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

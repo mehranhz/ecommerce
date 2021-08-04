@@ -155,4 +155,9 @@ class CartService
         return false;
     }
 
+    public function flush(){
+        $this->cart = collect([]);
+        Cookie::queue('cart',$this->cart->toJson(),60*24*365);
+    }
+
 }

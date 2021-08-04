@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {});
-
+Route::get('/', function () {
+    return view('index');
+});
+Route::get('/order/registered',function (){
+    return view('orderRegistered');
+})->name('order.registered');
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->namespace('App\\http\\Controllers\\Admin')->group(function (){
     Route::get('panel','HomeController@index')->name('panel');
     Route::get('filemanager','HomeController@fileManager')->name('fileManager');

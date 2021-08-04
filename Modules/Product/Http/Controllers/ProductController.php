@@ -5,9 +5,15 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Variety;
 
 class ProductController extends Controller
 {
+    public function shop(){
+        $products = Product::paginate(20);
+        return view('product::frontend.shop',compact('products'));
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -41,9 +47,10 @@ class ProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return view('product::show');
+        $varieties = $product->varieties();
+        return view('product::frontend.show',compact('product','varieties'));
     }
 
     /**

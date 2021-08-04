@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
+use Modules\Payment\Entities\Payment;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variety;
 
@@ -16,13 +17,16 @@ class Order extends Model
 
     protected $fillable = ['status','price','tracking_code'];
 
+
     public function user(){
         return $this->belongsTo(User::class);
     }
     public function address(){
         return $this->belongsTo(Address::class);
     }
-
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
     public function items(){
         $items = DB::table('item_order')->where('order_id',$this->id)->get()->toArray();
         return array_map((function ($item){

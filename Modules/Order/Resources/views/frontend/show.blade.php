@@ -1,5 +1,5 @@
-@extends('admin.panel')
-@section('page')
+@extends('frontend.layouts.page')
+@section('content')
     <div class="container pd-v-3">
         <table class="table table-dark table-bordered">
             <thead></thead>

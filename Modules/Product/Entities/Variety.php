@@ -11,7 +11,10 @@ class Variety extends Model
 
     protected $fillable = ['basePrice','discount','inventory','specifications','parent'];
     public function specifications(){
-        return explode("\n",$this->specifications);
+        $specifications = array_map(function ($item){
+            return explode(':',$item);
+        },explode("\n",$this->specifications));
+        return $specifications;
     }
     protected static function newFactory()
     {

@@ -20,7 +20,7 @@ class OrderController extends Controller
     }
 
     public function payment(Order $order){
-        return view('order::payment',compact('order'));
+        return view('order::frontend.payment',compact('order'));
     }
     /**
      * Display a listing of the resource.
@@ -57,7 +57,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('order::show',compact('order'));
+        return view('order::frontend.show',compact('order'));
     }
 
     /**

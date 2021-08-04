@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\Product\Entities\Product;
 
 class HomeController extends Controller
 {
@@ -25,4 +26,6 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
 }
