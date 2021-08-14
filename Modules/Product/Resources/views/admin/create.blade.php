@@ -51,6 +51,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="categories">دسته بندی </label>
+                    <select name="categories[]" id="categories" multiple class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <h3>جدول مشخصات</h3>
                     <label for="key">کلید</label>
                     <input type="text" id="key">

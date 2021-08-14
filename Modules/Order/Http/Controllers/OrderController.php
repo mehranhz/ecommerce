@@ -5,18 +5,56 @@ namespace Modules\Order\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Cart\Services\Cart;
 use Modules\Order\Entities\Order;
 
 class OrderController extends Controller
 {
+    public function register(Request $request)
+    {
+        $prevOrders = Order::where('status', 'unpaid')->where('user_id', auth()->user()->id)->get();
+        foreach ($prevOrders as $prevOrder) {
+            $prevOrder->delete();
+        }
 
+
+        $cart = Cart::all();
+        if ($cart->count()) {
+            $price = Cart::price();
+            $order = auth()->user()->orders()->create([
+                'status' => 'unpaid',
+                'price' => $price,
+            ]);
+
+
+            DB::table('item_order')->insertOrIgnore((array)$cart->map(function ($cartItem) use ($order): array {
+                $itemType = isset($cartItem['Variety']) ? 'Variety' : 'Product';
+//                if ($cartItem["price"] != $cartItem[$itemType]->basePrice ){
+//                   $this->removeItem($cartItem);
+//                    alert()->message('قیمت یکی از کالاهای سبد خرید شما تغییر کرده .');
+//                }
+
+                return [
+                    'order_id' => $order->id,
+                    'item_id' => $cartItem[$itemType]->id,
+                    'item_type' => $itemType,
+                    'price'=>$cartItem["price"] - (($cartItem["price"]/100) *$cartItem["$itemType"]->discount),
+                    'quantity' => $cartItem["quantity"]
+                ];
+            })->toArray());
+            return redirect(route('order.show', ['order' => $order->id]));
+
+        }
+    }
 
     public function addAddress(Request $request,Order $order){
 
         $order->address_id = $request->address_option;
         $order->save();
 
-        return redirect(route('admin.order.payment',['order'=>$order->id]));
+        return redirect(route('
+        order.payment',['order'=>$order->id]));
     }
 
     public function payment(Order $order){

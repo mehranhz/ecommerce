@@ -417,6 +417,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./resources/css/mobile.css":
+/*!**********************************!*\
+  !*** ./resources/css/mobile.css ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvY3NzL21vYmlsZS5jc3M/ZDZjMCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEiLCJmaWxlIjoiLi9yZXNvdXJjZXMvY3NzL21vYmlsZS5jc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRyYWN0ZWQgYnkgbWluaS1jc3MtZXh0cmFjdC1wbHVnaW5cbmV4cG9ydCB7fTsiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/css/mobile.css\n");
+
+/***/ }),
+
 /***/ "./resources/css/admin.css":
 /*!*********************************!*\
   !*** ./resources/css/admin.css ***!
@@ -424,7 +435,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvY3NzL2FkbWluLmNzcz8wMTM1Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSIsImZpbGUiOiIuL3Jlc291cmNlcy9jc3MvYWRtaW4uY3NzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/css/admin.css\n");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvY3NzL2FkbWluLmNzcz83NDEwIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSIsImZpbGUiOiIuL3Jlc291cmNlcy9jc3MvYWRtaW4uY3NzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/css/admin.css\n");
 
 /***/ }),
 
@@ -582,6 +593,7 @@ eval("!function(t,e){ true?module.exports=e():0}(this,function(){return function
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/admin": 0,
+/******/ 			"css/mobile": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/bootstrap": 0
 /******/ 		};
@@ -631,10 +643,11 @@ eval("!function(t,e){ true?module.exports=e():0}(this,function(){return function
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/app","css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/admin.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/mobile.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/admin.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

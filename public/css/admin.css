@@ -103,6 +103,8 @@ aside{
 
 body {
     font-family: BNazanin !important;
+    background-color: #FFFFFF;
+    color: black;
     text-align: right !important;
     font-family: 'IranSans';
     font-size: 16px;

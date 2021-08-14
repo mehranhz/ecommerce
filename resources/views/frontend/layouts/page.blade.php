@@ -1,6 +1,10 @@
-@include('frontend.layouts.header')
+@include('frontend.layouts.head')
+    @yield('css')
+</head>
+<body>
+@include('frontend.layouts.topNav')
 @yield('content')
-@extends('frontend.layouts.footer')
-@section('scripts')
-    @yield('script')
-@endsection
+@yield('scripts')
+@include('frontend.layouts.footer')
+
+

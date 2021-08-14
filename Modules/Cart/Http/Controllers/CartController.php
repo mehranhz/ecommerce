@@ -2,6 +2,7 @@
 
 namespace Modules\Cart\Http\Controllers;
 
+use App\Helpers\Agent\Agent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,6 +20,9 @@ class CartController extends Controller
      */
     public function index()
     {
+        if (Agent::get()->isMobile()) {
+            return view('cart::frontend.cartMobile');
+        }
         return view('cart::frontend.cart');
     }
 
@@ -89,8 +93,8 @@ class CartController extends Controller
      */
     public function add(Request $request, $id)
     {
-
-        if ($request->type == 'variety') {
+        $number = $request->number ?? 0;
+        if (strtolower($request->type) == 'variety') {
             $type = 'variety';
             $variety = Variety::find($id);
             $product = Product::find($variety->parent);
@@ -100,14 +104,19 @@ class CartController extends Controller
             $product = Product::find($id);
             $item = ['product' => $product, 'variety' => null];
         }
-
         if (Cart::has($item[$type])) {
             $quantity = isset($request->quantity) ?? 1;
             $cartItem = Cart::get($item[$type]);
-            if ($item[$type]->inventory >= $cartItem['quantity'] + 1) {
-                Cart::update($item[$type], 1);
+
+            if ($number < 0 && $cartItem['quantity'] <= 1) {
+                return redirect(route('cart.index'));
+
+            }
+            if ($item[$type]->inventory >= $cartItem['quantity'] + 1 || $number != 0) {
+                Cart::update($item[$type], $number == 0 ? 1 : $number);
             }
         } else {
+
             Cart::put($item, [
                 'quantity' => 1,
                 'price' => $item['variety'] == null ? $product->basePrice : $variety->basePrice,
@@ -147,41 +156,12 @@ class CartController extends Controller
         }
     }
 
-    public function removeItem($item){
+    public function removeItem($item)
+    {
         Cart::delete($item);
         return back();
     }
 
-    public function register(Request $request){
-        $prevOrders = Order::where('status','unpaid')->where('user_id',auth()->user()->id)->get();
-        foreach ($prevOrders as $prevOrder){
-            $prevOrder->delete();
-        }
 
 
-        $cart = Cart::all();
-        if ($cart->count()){
-            $price = $cart->sum(function ($item){
-                $type = isset($item['Variety'])?'Variety':'Product';
-                return $item[$type]->basePrice * $item['quantity'];
-            });
-            $order = auth()->user()->orders()->create([
-                'status'=>'unpaid',
-                'price'=>$price,
-            ]);
-
-
-                DB::table('item_order')->insertOrIgnore((array)$cart->map(function ($cartItem) use ($order):array {
-                    $itemType = isset($cartItem['Variety'])?'Variety':'Product';
-                    return [
-                        'order_id'=>$order->id,
-                        'item_id'=>$cartItem[$itemType]->id,
-                        'item_type'=>$itemType,
-                        'quantity'=>$cartItem["quantity"]
-                        ];
-                })->toArray());
-                return redirect(route('order.show',['order'=>$order->id]));
-
-        }
-    }
 }

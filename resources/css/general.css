@@ -1,0 +1,38 @@
+@font-face {
+    font-family: BNazanin;
+    src: url("/fonts/BNazanin.woff");
+}
+
+
+body {
+    overflow-x: hidden;
+    margin: 0px !important;
+    width: 100% !important;
+    color: #ffffff;
+    /*background-image: url('/images/background.jpg');*/
+    background-color: #0c0c0ce8;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+body *{
+    font-family: BNazanin !important;
+}
+.space-between{
+    justify-content: space-between;
+}
+
+.spacer{
+    padding: 1rem 0 !important;
+}
+
+.pd-v-3{
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+.rtl-row{
+    display: flex;
+    flex-direction:row-reverse ;
+    align-items: center;
+}
+

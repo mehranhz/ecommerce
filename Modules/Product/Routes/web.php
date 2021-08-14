@@ -13,6 +13,7 @@
 
 Route::prefix('product')->group(function() {
     Route::get('/shop', 'ProductController@shop')->name('shop');
+    Route::get('/category/{category}', 'ProductController@category')->name('category');
     Route::get('/{product}', 'ProductController@show')->name('product.show');
     Route::get('/', 'ProductController@index');
 });

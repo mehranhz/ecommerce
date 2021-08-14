@@ -16,6 +16,12 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.js('resources/js/mobile.js', 'public/js')
+    .postCss('resources/css/mobile.css', 'public/css', [
+        //
+    ]);
+
 mix.js('resources/js/admin.js', 'public/js')
     .postCss('resources/css/admin.css', 'public/css', [
         //

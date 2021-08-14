@@ -6,5 +6,6 @@
     "Main": true,
     "Category": true,
     "Order": true,
-    "Payment": true
+    "Payment": true,
+    "Profile": true
 }

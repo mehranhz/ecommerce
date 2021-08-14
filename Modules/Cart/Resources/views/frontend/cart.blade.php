@@ -19,7 +19,7 @@
                                             {{$item['quantity'] == $num?'selected':''}} style="color: #222020!important;">{{$num}}</option>
                                 @endforeach
                             </select>
-                            <span style="padding: 0 1rem;font-size: 18px">{{$item['price'] * $item['quantity']}}</span>
+
                             <form method="post" action="{{route('cart.remove.item',['item'=>$item['id']])}}">
                                 @method('DELETE')
                                 @csrf
@@ -31,6 +31,7 @@
                     <div class="col-6" style="text-align: right">
                         <h4>{{$item['title']}}</h4>
                         <span>{!! $item['specifications'] !!}</span>
+                        <span style="padding: 0 1rem;font-size: 18px">{{$item['price'] * $item['quantity']}}</span>
                     </div>
                 </div>
 
@@ -42,20 +43,20 @@
                 });
             @endphp
             @if(Cart::all()->count()>0)
-                <div
-                    style="display: flex;width: 100%!important;position: fixed; bottom: 2.5rem;padding: 1rem 0;right: 0;background-color:black ">
-                    <div style="padding: 0 1rem;margin: 0 1rem">
-                        <form action="{{route('cart.register')}}" method="post">
-                            @csrf
-                            <input type="submit" class="btn" value="تکمیل فرایند خرید"
-                                   style="background-color: #fed332;color: #222020!important;width: 150px;font-size: 18px;">
-                        </form>
-                    </div>
-                    <div>
-                        <span>مبلغ قابل پرداخت</span>
-                        <span><h3>{{$total}}</h3></span>
-                    </div>
-                </div>
+{{--                <div--}}
+{{--                    style="display: flex;width: 100%!important;position: fixed; bottom: 2.5rem;padding: 1rem 0;right: 0;background-color:black ">--}}
+{{--                    <div style="padding: 0 1rem;margin: 0 1rem">--}}
+{{--                        <form action="{{route('cart.register')}}" method="post">--}}
+{{--                            @csrf--}}
+{{--                            <input type="submit" class="btn" value="تکمیل فرایند خرید"--}}
+{{--                                   style="background-color: #fed332;color: #222020!important;width: 150px;font-size: 18px;">--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <span>مبلغ قابل پرداخت</span>--}}
+{{--                        <span><h3>{{$total}}</h3></span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
             @else
                 <h2 style="text-align: center"> سبدخرید شما خالی است </h2>
@@ -63,7 +64,8 @@
         </div>
     </section>
 @endsection
-@section('script')
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         function changeQuantity(event, id, cartName = null) {
             $.ajaxSetup({
@@ -89,6 +91,7 @@
             });
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 @endsection

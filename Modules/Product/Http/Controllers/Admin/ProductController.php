@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variety;
 use Modules\Product\Http\Requests\StoreProductRequest;
@@ -29,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product::admin.create');
+        $categories = Category::all();
+        return view('product::admin.create',compact('categories'));
     }
 
     /**
@@ -54,6 +56,7 @@ class ProductController extends Controller
             $product->type = 'accessory';
         }
         $product->save();
+        $product->categories()->sync($request->categories);
         return redirect(route('admin.products.index'));
     }
 
@@ -77,6 +80,7 @@ class ProductController extends Controller
         $product->specifications = array_map(function ($item) {
             return explode(':', $item);
         }, explode("\n", $product->specifications));
+
         return view('product::admin.show', compact('product', 'accessories', 'varieties'));
     }
 
@@ -87,7 +91,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product::admin.edit', compact('product'));
+        $categories = Category::all();
+        return view('product::admin.edit', compact('product','categories'));
     }
 
     /**
@@ -99,6 +104,7 @@ class ProductController extends Controller
     public function update(StoreProductRequest $request, Product $product)
     {
         $product->update($request->all());
+        $product->categories()->sync($request->categories);
         return redirect(route('admin.products.index'));
     }
 

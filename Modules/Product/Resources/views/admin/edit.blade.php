@@ -50,6 +50,19 @@
                     </div>
                     <img class="pd-v-1" src="{{$product->thumbnail}}" alt="" style="width: 300px">
                 </div>
+
+                <div class="form-group">
+                    @php
+                        $productCategories = $product->categories;
+                    @endphp
+                    <label for="categories">دسته بندی </label>
+                    <select name="categories[]" id="categories" multiple class="form-control">
+                        @foreach($categories as $category)
+                            <option {{$productCategories->where('id',$category->id)->count() ===0 ? '' : 'selected'}}  value="{{$category->id}}">{{$category->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <h3>جدول مشخصات</h3>
                     <label for="key">کلید</label>

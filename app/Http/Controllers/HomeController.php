@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Agent\Agent;
+//use Faker\Provider\UserAgent;
 use Illuminate\Http\Request;
 use Modules\Product\Entities\Product;
 
@@ -22,9 +24,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+//    public function index()
+//    {
+//        return view('home');
+//    }
+
     public function index()
     {
-        return view('home');
+        if (Agent::get()->isMobile()){
+            return view('mobileIndex');
+        }
+
+        return view('index');
     }
 
 

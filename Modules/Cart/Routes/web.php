@@ -18,6 +18,3 @@ Route::prefix('cart')->group(function() {
     Route::delete('/remove/{item}','CartController@removeItem')->name('remove.item');
 });
 
-Route::middleware('auth')->prefix('cart')->group(function (){
-    Route::post('/register','CartController@register')->name('register');
-});

@@ -15,40 +15,71 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status','price','tracking_code'];
+    protected $fillable = ['status', 'price', 'tracking_code'];
 
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function address(){
+
+    public function address()
+    {
         return $this->belongsTo(Address::class);
     }
-    public function payments(){
+
+    public function payments()
+    {
         return $this->hasMany(Payment::class);
     }
-    public function items(){
-        $items = DB::table('item_order')->where('order_id',$this->id)->get()->toArray();
-        return array_map((function ($item){
+
+    public function items()
+    {
+        $items = DB::table('item_order')->where('order_id', $this->id)->get()->toArray();
+        return array_map((function ($item) {
             $item = collect($item)->toArray();
-            $variety = $item['item_type'] == 'Variety' ? Variety::find($item['item_id']):null;
-            $product_id = $variety== null ? $item['item_id'] : $variety->parent;
+            $variety = $item['item_type'] == 'Variety' ? Variety::find($item['item_id']) : null;
+            $product_id = $variety == null ? $item['item_id'] : $variety->parent;
             $product = Product::find($product_id);
             unset($item['order_id']);
             unset($item['item_type']);
-            return array_merge($item,[
-                'Product'=>$product,
-                'Variety'=>$variety,
-                'price'=> $variety==null?$product->basePrice : $variety->basePrice
+            return array_merge($item, [
+                'Product' => $product,
+                'Variety' => $variety,
+                'price' => $variety == null ? $product->basePrice : $variety->basePrice
             ]);
-        }),$items);
+        }), $items);
     }
 
-    public function totalPrice(){
-        return array_sum(array_map(function ($item){
+    public function totalPrice()
+    {
+        return array_sum(array_map(function ($item) {
             return $item['price'] * $item['quantity'];
-        },$this->items()));
+        }, $this->items()));
     }
+
+    public function getStatus()
+    {
+        switch ($this->status) {
+            case 'unpaid':
+                return 'درانتظار پرداخت';
+                break;
+            case 'paid':
+                return 'در انتظار بررسی';
+                break;
+            case 'preparation':
+                return 'در حال آماده سازی';
+                break;
+            case 'posted':
+                return 'ارسال شده';
+                break;
+            case 'canceled':
+                return 'لغو شده';
+                break;
+
+        }
+    }
+
     protected static function newFactory()
     {
         return \Modules\Order\Database\factories\OrderFactory::new();

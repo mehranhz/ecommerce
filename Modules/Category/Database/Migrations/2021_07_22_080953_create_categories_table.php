@@ -27,16 +27,16 @@ class CreateCategoriesTable extends Migration
         Schema::create('category_product', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('product');
-            $table->foreign('product')->references('id')->on('products');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
 
-            $table->unsignedBigInteger('category');
-            $table->foreign('category')->references('id')->on('categories');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
 
-            $table->unsignedBigInteger('user');
-            $table->foreign('user')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unique(['category','product']);
+            $table->unique(['category_id','product_id']);
             $table->timestamps();
         });
     }

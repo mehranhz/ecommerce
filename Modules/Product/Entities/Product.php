@@ -5,6 +5,7 @@ namespace Modules\Product\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
+use Modules\Category\Entities\Category;
 
 class Product extends Model
 {
@@ -28,5 +29,17 @@ class Product extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function specifications(){
+        $specifications = array_map(function ($specification){
+            return explode(':',$specification);
+        },
+        explode("\n",$this->specifications));
+        return $specifications;
+    }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class,);
     }
 }

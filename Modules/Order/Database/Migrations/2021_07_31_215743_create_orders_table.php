@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('item_id');
             $table->string('item_type');
+            $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('quantity');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->primary(['order_id','item_id','item_type']);

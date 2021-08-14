@@ -159,5 +159,13 @@ class CartService
         $this->cart = collect([]);
         Cookie::queue('cart',$this->cart->toJson(),60*24*365);
     }
+    public function price(){
+        $cart = $this->all();
+       $price =  $cart->sum(function ($item) {
+            $type = isset($item['Variety']) ? 'Variety' : 'Product';
+            return ($item[$type]->basePrice - (($item[$type]->basePrice/100)*$item[$type]->discount) )  * $item['quantity'];
+        });
+        return $price;
+    }
 
 }

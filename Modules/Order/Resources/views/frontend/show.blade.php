@@ -1,59 +1,62 @@
-@extends('frontend.layouts.page')
+@extends('frontend.layouts.mobilePage')
 @section('content')
-    <div class="container pd-v-3">
-        <table class="table table-dark table-bordered">
-            <thead></thead>
-            <tbody>
-            @foreach($order->items() as $item)
-                @php
-                    $type = is_null($item['Variety'])?'Product' : 'Variety';
-                @endphp
-                <tr>
-                    <td>
-                        {{$item['Product']->title}}
-                        <br>
-                        @if($type == 'Variety')
-                            @foreach($item['Variety']->specifications() as $attribute)
-                                {{$attribute .' - ' }}
-                            @endforeach
-                        @endif
-                    </td>
-                    <td><img src="{{$item['Product']->thumbnail}}" style="width: 100px" alt=""></td>
-                    <td>{{$item[$type]->basePrice}}</td>
-                    <td>{{$item['quantity']}}</td>
-                    <td>{{$item[$type]->basePrice * $item['quantity']}}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <h3>قیمت کل {{$order->totalPrice()}}</h3>
-        <section>
-            @if(auth()->user()->addresses->count()>0)
-                <h3>انتخاب آدرس</h3>
-                <form action="{{route('admin.order.addAddress',['order'=>$order->id])}}" method="post">
-                    @csrf
-                    @method('PATCH')
-                    <div class="form-group">
-                        <fieldset>
-                            @foreach(auth()->user()->addresses as $address )
+    <section style="background-color: #0c0c0ce8;color:#FFFFFF ;margin-top: 2rem;text-align: right;direction: rtl">
+        <div class="container pd-v-3">
+{{--            <table class="table table-dark table-bordered table-responsive">--}}
+{{--                <thead></thead>--}}
+{{--                <tbody>--}}
+{{--                @foreach($order->items() as $item)--}}
+{{--                    @php--}}
+{{--                        $type = is_null($item['Variety'])?'Product' : 'Variety';--}}
+{{--                    @endphp--}}
+{{--                    <tr>--}}
+{{--                        <td>--}}
+{{--                            {{$item['Product']->title}}--}}
+{{--                            <br>--}}
+{{--                            @if($type == 'Variety')--}}
+{{--                                @foreach($item['Variety']->specifications() as $attribute)--}}
+{{--                                    {{$attribute[0].' : '.$attribute[1] .' - ' }}--}}
+{{--                                @endforeach--}}
+{{--                            @endif--}}
+{{--                        </td>--}}
+{{--                        <td><img src="{{$item['Product']->thumbnail}}" style="width: 100px" alt=""></td>--}}
+{{--                        <td>{{$item[$type]->basePrice}}</td>--}}
+{{--                        <td>{{$item['quantity']}}</td>--}}
+{{--                        <td>{{$item[$type]->basePrice * $item['quantity']}}</td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
+{{--            <h3>قیمت کل {{$order->totalPrice()}}</h3>--}}
 
-                                <div style="display: flex;border: 1px solid lightgray;padding: 1rem">
-                                    <input id="add-{{$address->id}}" name="address_option" type="radio" value="{{$address->id}}">
-                                    <div style="padding: 1rem">
-                                        <p>{{$address->address}}</p>
-                                        <p>{{$address->receiver}}</p>
-                                        <p>{{$address->phone}}</p>
+                @if(auth()->user()->addresses->count()>0)
+                    <h3>انتخاب آدرس</h3>
+                    <form action="{{route('order.addAddress',['order'=>$order->id])}}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <div class="form-group">
+                            <fieldset>
+                                @foreach(auth()->user()->addresses as $address )
+
+                                    <div style="display: flex;border: 1px solid lightgray;padding: 1rem">
+                                        <input id="add-{{$address->id}}" name="address_option" type="radio" value="{{$address->id}}">
+                                        <div style="padding: 1rem">
+                                            <p>{{$address->address}}</p>
+                                            <p>{{$address->receiver}}</p>
+                                            <p>{{$address->phone}}</p>
+                                        </div>
                                     </div>
-                                </div>
 
-                            @endforeach
-                        </fieldset>
-                    </div>
-                    <input type="submit" class="btn btn-md btn-success" value="ادامه">
-                </form>
+                                @endforeach
+                            </fieldset>
+                        </div>
+                        <input type="submit" class="btn btn-md btn-success" value="ادامه">
+                    </form>
+                @endif
 
+            <div style="padding-top: 2rem">
                 <h3>افزودن آدرس</h3>
-                <form action="{{route('admin.address.store')}}" method="post">
+                <form action="{{route('address.store')}}" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="country">کشور</label>
@@ -79,7 +82,10 @@
                     </div>
                     <input type="submit" value="ذخیره آدرس" class="btn btn-md btn-success">
                 </form>
-            @endif
-        </section>
-    </div>
+            </div>
+
+
+        </div>
+    </section>
+
 @endsection

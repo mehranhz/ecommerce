@@ -2,9 +2,11 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use App\Helpers\Agent\Agent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variety;
 
@@ -50,7 +52,17 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $varieties = $product->varieties();
+        $category = $product->categories()->latest()->first();
+        if (Agent::get()->isMobile()){
+            return view('product::frontend.mobileShow',compact('product','varieties','category'));
+        };
+
         return view('product::frontend.show',compact('product','varieties'));
+    }
+
+    public function category(Category $category){
+        $products = $category->products;
+        return view('product::frontend.category',compact('products'));
     }
 
     /**
