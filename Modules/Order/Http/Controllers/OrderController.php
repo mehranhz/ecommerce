@@ -53,8 +53,7 @@ class OrderController extends Controller
         $order->address_id = $request->address_option;
         $order->save();
 
-        return redirect(route('
-        order.payment',['order'=>$order->id]));
+        return redirect(route('order.payment',['order'=>$order->id]));
     }
 
     public function payment(Order $order){

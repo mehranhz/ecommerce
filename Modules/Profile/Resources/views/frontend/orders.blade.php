@@ -10,7 +10,7 @@
            <div class="d-flex" style="justify-content: space-between;align-items: center;flex-direction: row-reverse">
                <span style="padding: 1rem 0 ;direction: rtl">26 مرداد 1400</span>
                <span>
-                   <a class="clickable" href="{{$order->status=='unpaid'?route('admin.order.payment',['order'=>$order->id]):'#' }}">{{$order->getStatus()}}</a>
+                   <a class="clickable" href="{{$order->status=='unpaid'?route('order.payment',['order'=>$order->id]):'#' }}">{{$order->getStatus()}}</a>
 
                </span>
            </div>
