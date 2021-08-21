@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
 use Modules\Category\Entities\Category;
+use Modules\Order\Entities\ReturnRequest;
 
 class Product extends Model
 {
@@ -41,5 +42,9 @@ class Product extends Model
 
     public function categories(){
         return $this->belongsToMany(Category::class,);
+    }
+
+    public function return_requests(){
+        return $this->belongsToMany(ReturnRequest::class);
     }
 }

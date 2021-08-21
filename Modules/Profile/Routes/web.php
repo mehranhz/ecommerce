@@ -14,5 +14,5 @@
 Route::prefix('profile')->group(function() {
     Route::get('/', 'ProfileController@index')->name('profile');
     Route::get('/my-orders','ProfileController@myOrders')->name('profile.myOrders');
-    Route::get('/orders-return')->name('profile.orderReturn');
+    Route::get('/orders-return','ProfileController@returnalbes')->name('profile.orderReturn');
 });

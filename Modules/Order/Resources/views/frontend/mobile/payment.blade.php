@@ -1,4 +1,4 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('content')
 <section style="background-color: #0c0c0ce8;min-height: 100vh;color: #FFFFFF;text-align: right;padding-top: 2rem">
     <div class="container pd-v-3">

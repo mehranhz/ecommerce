@@ -180,9 +180,6 @@ body *{
 .overflow-auto::-webkit-scrollbar {
     display: none;
 }
-.top-bar-icon{
-    width: 24px !important;
-}
 
 
 

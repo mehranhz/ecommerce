@@ -21,100 +21,54 @@ class CartController extends Controller
     public function index()
     {
         if (Agent::get()->isMobile()) {
-            return view('cart::frontend.cartMobile');
+            return view('cart::frontend.mobile.cartMobile');
         }
         return view('cart::frontend.cart');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('cart::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('cart::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('cart::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * this function in charge of adding or reducing the number of items in cart
+     * an item could be a product or a variety of a product
      */
     public function add(Request $request, $id)
     {
         $number = $request->number ?? 0;
-        if (strtolower($request->type) == 'variety') {
-            $type = 'variety';
-            $variety = Variety::find($id);
-            $product = Product::find($variety->parent);
-            $item = ['product' => $product, 'variety' => $variety];
-        } else {
-            $type = 'product';
-            $product = Product::find($id);
-            $item = ['product' => $product, 'variety' => null];
-        }
+
+        /* get the requested item from database
+        * also if the item is a variety of a product get the product itself
+        */
+        $type = strtolower($request->type) == 'variety' ? 'variety' : 'product';
+        $variety = $type == 'variety' ? Variety::find($id) : null;
+        $product = $type =='variety' ? Product::find($variety->parent) : Product::find($id);
+        $item = ['product' => $product, 'variety' => $variety];
+
+
+        /*
+         * adding item to cart or increase its quantity if it already exists in cart
+         */
         if (Cart::has($item[$type])) {
+
             $quantity = isset($request->quantity) ?? 1;
             $cartItem = Cart::get($item[$type]);
 
+            /*
+             * prevent negative or zero quantity
+             * */
             if ($number < 0 && $cartItem['quantity'] <= 1) {
                 return redirect(route('cart.index'));
-
             }
-            if ($item[$type]->inventory >= $cartItem['quantity'] + 1 || $number != 0) {
+
+            /* update item quantity */
+            if ($item[$type]->inventory >= $cartItem['quantity'] + $number) {
                 Cart::update($item[$type], $number == 0 ? 1 : $number);
             }
+
+
+            // if item doesn't exist in cart add it
         } else {
 
             Cart::put($item, [
@@ -131,11 +85,12 @@ class CartController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function quantityChange(Request $request)
+    public
+    function quantityChange(Request $request)
     {
 
         $data = $request->validate([
-            'quantity' => 'required',
+            'quantity' => 'required|digits_between:1,3',
             'id' => 'required',
         ]);
 
@@ -151,17 +106,22 @@ class CartController extends Controller
 
             return response(['status' => 'success'], 200);
 
-        } else {
-            return response(['status' => error], 404);
         }
+            return response(['status' => error], 404);
+
     }
 
-    public function removeItem($item)
+
+    /**
+     * @param $item
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public
+    function removeItem($item)
     {
         Cart::delete($item);
         return back();
     }
-
 
 
 }

@@ -58,9 +58,7 @@
     display: flex;
     align-items: center
 }
-.product-stars img{
-    width: 18px;
-}
+
 .product-action-btns {
     display: flex;
     flex-direction: row-reverse;
@@ -71,14 +69,12 @@
 .action-btn {
     padding: .25rem;
 }
-.action-btn img{
-    width: 18px;
-}
+
 .product-recommendations{
     padding: 0rem .5rem;
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
+    align-items: end;
 }
 .product-recommendations a{
     padding: 0 .5rem;

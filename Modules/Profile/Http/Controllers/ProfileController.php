@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Entities\Order;
+use Modules\Order\Entities\ReturnRequest;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,18 @@ class ProfileController extends Controller
 
     public function myOrders(){
         $orders = auth()->user()->orders->where('address_id','!=',null);
-        return view('profile::frontend.orders',compact('orders'));
+        return view('profile::frontend.mobile.orders',compact('orders'));
+    }
+
+    public function returnalbes(){
+        $orders = Order::where('status','received')->get();
+        $returnables=[];
+        foreach ($orders as $order){
+            if (! ReturnRequest::where('order_id',$order->id)->first()){
+                $returnables [] = $order;
+            }
+        }
+        return view('profile::frontend.mobile.returnables',compact('returnables'));
     }
 
     /**
@@ -22,7 +34,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile::index');
+        return view('profile::frontend.mobile.index');
     }
 
     /**

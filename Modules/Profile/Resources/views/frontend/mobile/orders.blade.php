@@ -1,4 +1,4 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('content')
     <div class="container" style="margin-top: 4rem;">
         @foreach($orders as $order)
@@ -22,6 +22,7 @@
                                <img  src="{{$item['Product']->thumbnail}}" alt="" style="width: 64px;">
                            </a>
                        </div>
+
                    @endforeach
                </div>
                <span class="clickable" style="font-size: 20px;padding-right: 2rem"><</span>

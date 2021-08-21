@@ -6,6 +6,7 @@
                 @php
                     $type = isset($item['Variety'])?'Variety':'Product';
                     $product = $item[$type];
+
                 @endphp
                 <div class="row">
                     <div class="col-6">

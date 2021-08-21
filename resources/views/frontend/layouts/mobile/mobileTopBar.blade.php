@@ -1,7 +1,7 @@
 <div class="top-bar">
     <div class="rtl-row">
         <div class="col-2 top-bar-col" >
-            <img class="top-bar-icon " src="{{asset('images/send.png')}}" alt="">
+            <img class="top-bar-icon " src="{{asset('images/mobile/send.png')}}" alt="">
         </div>
 
         <div class="col-6 top-bar-col">
@@ -14,7 +14,7 @@
 
 {{--                        @if(Cart::all()->count()>0)--}}
                             <a href="{{route('cart.index')}}">
-                                <img src="{{asset('images/cart.png')}}" alt="" class="top-bar-icon">
+                                <img src="{{asset('images/mobile/cart.png')}}" alt="" class="top-bar-icon">
 
 {{--                                <div--}}
 {{--                                    style="width: 20px;height: 20px;background: red;display: flex;justify-content: center;align-items: center;border-radius: 50%;position: absolute;bottom: -3px;right: -4px">--}}
@@ -26,7 +26,7 @@
                 </li>
                 <li>
                     <a href="{{auth()->user()? route('profile'):route('login')}}">
-                        <img src="{{asset('images/user.png')}}" class="top-bar-icon">
+                        <img src="{{asset('images/mobile/user.png')}}" class="top-bar-icon">
                     </a>
                 </li>
             </ul>

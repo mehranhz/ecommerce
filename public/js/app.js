@@ -593,7 +593,7 @@ eval("!function(t,e){ true?module.exports=e():0}(this,function(){return function
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/admin": 0,
-/******/ 			"css/mobile": 0,
+/******/ 			"css/mobile/mobile": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/bootstrap": 0
 /******/ 		};
@@ -643,11 +643,11 @@ eval("!function(t,e){ true?module.exports=e():0}(this,function(){return function
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/mobile.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin","css/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/admin.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin","css/mobile/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/mobile.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin","css/mobile/mobile","css/app","css/bootstrap"], () => (__webpack_require__("./resources/css/admin.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

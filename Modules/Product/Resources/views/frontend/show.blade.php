@@ -77,7 +77,7 @@
                             <img src="{{asset('images/share.png')}}" style="width: 24px;margin-bottom: 1.5rem" alt="">
                         </a>
                         <a href="">
-                            <img src="{{asset('images/ribbon1.png')}}" style="width: 24px" alt="">
+                            <img src="{{asset('images/save.png')}}" style="width: 24px" alt="">
                         </a>
                     </div>
                     <div class="stars d-xl-none" style="display: flex;align-items: center">

@@ -57,8 +57,25 @@ class OrderController extends Controller
     }
 
     public function payment(Order $order){
-        return view('order::frontend.payment',compact('order'));
+        return view('order::frontend.mobile.payment',compact('order'));
     }
+
+    public function return(Request $request,Order $order){
+
+        $return = $order->returnRequest()->create([
+            'order_id'=>$order->id,
+            'description'=>$request->description,
+            'image'=>$request->image,
+            'status'=>'waiting',
+        ]);
+        $return->products()->sync($request['order_'.$order->id]);
+        alert()->success('درخواست شما با موفقیت ثبا شد.نتیجه پس از بررسی به شما اعلام خواهد شد');
+        return back();
+
+    }
+
+
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -94,7 +111,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('order::frontend.show',compact('order'));
+        return view('order::frontend.mobile.show',compact('order'));
     }
 
     /**

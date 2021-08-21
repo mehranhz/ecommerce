@@ -1,6 +1,6 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/product.css')}}">
+    <link rel="stylesheet" href="{{asset('css//mobile/product.css')}}">
 @endsection
 @section('content')
 
@@ -25,22 +25,22 @@
                 <div class="product-icons-ribbon">
                     <div class="product-action-btns">
                         <a href="" class="action-btn">
-                            <img src="{{asset('images/ribbon1.png')}}" alt="">
+                            <img src="{{asset('images/mobile/18-save.png')}}" alt="">
                         </a>
                         <a href="" class="action-btn">
-                            <img src="{{asset('images/share.png')}}" alt="">
+                            <img src="{{asset('images/mobile/share.png')}}" alt="">
                         </a>
                         <a href="" class="action-btn">
-                            <img src="{{asset('images/bell.png')}}" alt="">
+                            <img src="{{asset('images/mobile/bell.png')}}" alt="">
                         </a>
                     </div>
                     <div class="product-stars">
-                        <img src="{{asset('images/star.png')}}" alt="">
+                        <img src="{{asset('images/mobile/18-star.png')}}" alt="">
                         <span>4.2(150)</span>
                     </div>
                 </div>
                 <div class="product-recommendations action-btn" >
-                    <img src="{{asset('images/like.png')}}"  alt="">
+                    <img src="{{asset('images/mobile/18-like.png')}}"  alt="">
                     <a style=""> 99% از خریداران این محصول را پیشنهاد داده اند</a>
                 </div>
             </div>

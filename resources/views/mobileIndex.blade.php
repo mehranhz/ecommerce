@@ -1,4 +1,4 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
     <link rel="stylesheet" href="{{asset('css/slider.css')}}">

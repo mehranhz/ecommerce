@@ -32,6 +32,9 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function returnRequest(){
+        return $this->hasMany(ReturnRequest::class);
+    }
 
     public function items()
     {

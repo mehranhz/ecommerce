@@ -1,5 +1,5 @@
 <header>
-    @include('frontend.layouts.topBar')
+    @include('frontend.layouts.mobile.mobileTopBar')
     <div class="spacer d-none d-md-block">
         &nbsp;
     </div>

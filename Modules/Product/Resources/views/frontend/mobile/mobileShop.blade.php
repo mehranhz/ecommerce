@@ -1,9 +1,9 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/shop.css')}}">
+    <link rel="stylesheet" href="{{asset('css/mobile/shop.css')}}">
 @endsection
 @section('content')
-    <section style="background-color: #0c0c0ce8;min-height: 100vh;" class="pd-v-3">
+    <section class="products-section pd-v-3">
         <div class="container">
             <div class="row">
                 @foreach($products as $product)
@@ -13,7 +13,7 @@
                         </a>
 
                         <div class="c-product-info">
-                            <img src="{{asset('images/ribbon1.png')}}" alt="">
+                            <img src="{{asset('images/mobile/save.png')}}" alt="">
                             <h3>
                                 <a href="{{route('product.show',['product'=>$product->id])}}"
                                    class="product-tile-title">{{$product->title}}</a>
@@ -23,8 +23,7 @@
                                       id="add-to-cart-{{$product->id}}">
                                     @csrf
                                     <input type="hidden" name="type" value="product">
-                                    <img src="{{asset('images/add2.png')}}" class="add-to-cart-btn"
-                                         style="width: 24px;cursor: pointer" alt=""
+                                    <img src="{{asset('images/mobile/add-to-cart.png')}}" class="add-to-cart-btn" alt=""
                                          onclick='document.getElementById("add-to-cart-{{$product->id}}").submit()'>
                                 </form>
                             @else
@@ -34,7 +33,7 @@
 
                         </div>
                         <h4 class="c-product-price">
-                            250000 TM
+                            {{$product->basePrice}} TM
                         </h4>
                     </div>
 

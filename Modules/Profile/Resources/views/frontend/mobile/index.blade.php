@@ -1,4 +1,4 @@
-@extends('frontend.layouts.mobilePage')
+@extends('frontend.layouts.mobile.mobilePage')
 @section('content')
 <div class="container" style="margin-top: 5rem">
     <div class="card" style="background-color: black;padding:1rem ">
@@ -55,7 +55,7 @@
             <a href="" class="clickable"> < </a>
         </div>
         <div style="display: flex;justify-content: space-between;flex-direction: row-reverse;align-items: center;border-bottom: 1px solid #777777;padding:1rem .5rem;font-size: 18px">
-            <a href="" class="clickable"> درخواست مرجوعی </a>
+            <a href="{{route('profile.orderReturn')}}" class="clickable"> درخواست مرجوعی </a>
             <a href="" class="clickable"> < </a>
         </div>
         <div style="display: flex;justify-content: space-between;flex-direction: row-reverse;align-items: center;border-bottom: 1px solid #777777;padding:1rem .5rem;font-size: 18px">

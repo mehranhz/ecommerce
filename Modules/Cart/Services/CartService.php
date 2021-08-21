@@ -21,13 +21,15 @@ class CartService
     public function __construct()
     {
 //        $this->cart = session()->get('cart') ?? collect([]);
-        $this->cart = collect(json_decode(request()->cookie('cart'),true))?? collect([]);
+        // get cart if its set in cookie ; create empty collection if it's not;
+        $this->cart = collect(json_decode(request()->cookie('cart'), true)) ?? collect([]);
     }
 
     /**
      * @param $item
      * @param array|null $data
      * @return $this
+     * adding item to cart
      */
     public function put($item, array $data = null)
     {
@@ -45,15 +47,19 @@ class CartService
                 'subject_class' => $item['variety'] ? get_class($item['variety']) : get_class($item['product']),
             ];
         }
+        // add created item to cart collection
         $this->cart->put($cartItem['id'], $cartItem);
 //        session()->put('cart', $this->cart);
-        Cookie::queue('cart',$this->cart->toJson(),60*24*365);
+
+        // create or replace cart cookie
+        Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 365);
         return $this;
     }
 
     /**
      * @param $key
      * @return bool
+     * gets a product or variety of product and return true if it exists in cart and false if it doesn't
      */
     public function has($key)
     {
@@ -67,6 +73,7 @@ class CartService
      * @param $key
      * @param false $withObject
      * @return mixed
+     * takes a cart item id or an object of products or varieties and returns its match item from cart
      */
     public function get($key, $withObject = false)
     {
@@ -79,6 +86,7 @@ class CartService
 
     /**
      * @return \Illuminate\Support\Collection
+     * return all items from cart
      */
     public function all()
     {
@@ -91,6 +99,7 @@ class CartService
     /**
      * @param $item
      * @return mixed
+     * gets a cart item and returns it with product and variety attached to it
      */
     protected function withObject($item)
     {
@@ -107,6 +116,7 @@ class CartService
     /**
      * @param $key
      * @param $option
+     * option could be an integer value to simply update item quantity or could be an array to update multiple items in item
      */
     public function update($key, $option)
     {
@@ -149,23 +159,53 @@ class CartService
                 return $key != $item['id'];
             });
 //            session()->put('cart', $this->cart);
-            Cookie::queue('cart',$this->cart->toJson(),60*24*7*4*12);
+            Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 7 * 4 * 12);
 
         }
         return false;
     }
 
-    public function flush(){
+    /*
+     * empty cart
+     * */
+    public function flush()
+    {
         $this->cart = collect([]);
-        Cookie::queue('cart',$this->cart->toJson(),60*24*365);
+        Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 365);
     }
-    public function price(){
+
+
+    /**
+     * @return mixed
+     * cart total price
+     */
+    public function price($options = null)
+    {
         $cart = $this->all();
-       $price =  $cart->sum(function ($item) {
-            $type = isset($item['Variety']) ? 'Variety' : 'Product';
-            return ($item[$type]->basePrice - (($item[$type]->basePrice/100)*$item[$type]->discount) )  * $item['quantity'];
+        $price = $cart->sum(function ($item) {
+            return $this->itemPrice($item);
         });
         return $price;
+    }
+
+
+    /**
+     * @param $item
+     * @return float|int
+     * gets a n item and returns it final price
+     */
+    public function itemPrice($item)
+    {
+        $type = isset($item['Variety']) ? 'Variety' : 'Product';
+        if ($this->has($item[$type])) {
+            $price = ($item[$type]->basePrice - (($item[$type]->basePrice / 100) * $item[$type]->discount)) * $item['quantity'];
+            return $price;
+        }
+    }
+
+    public function itemType($item)
+    {
+        return isset($item['Variety']) ? 'Variety' : 'Product';
     }
 
 }

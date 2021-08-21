@@ -17,4 +17,5 @@ Route::prefix('order')->group(function() {
     Route::patch('/addAddress/{order}','OrderController@addAddress')->name('order.addAddress');
     Route::get('/payment/{order}','OrderController@payment')->name('order.payment');
     Route::post('/register','OrderController@register')->name('order.register');
+    Route::post('/return/{order}','OrderController@return')->name('order.return');
 });

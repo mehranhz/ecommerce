@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
     public function addPayment(Request $request)
     {
-
+        Cart::flush();
         $order = Order::find($request->order);
         $cart = Cart::all();
 
@@ -66,7 +66,7 @@ class PaymentController extends Controller
             $errors =$exception->getMessage();
 
                         alert()->error($errors);
-                        return redirect(route('admin.order.payment',['order'=>$payment->order->id]));
+                        return redirect(route('order.payment',['order'=>$payment->order->id]));
         }
 
     }

@@ -29,3 +29,10 @@
 .c-product-price {
     color: #fed332 !important;
 }
+.products-section{
+    background-color: #0c0c0ce8;
+    min-height: 100vh;
+}
+.add-to-cart-btn{
+    cursor: pointer;
+}

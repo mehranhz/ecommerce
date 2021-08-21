@@ -14,7 +14,9 @@ class ProductController extends Controller
 {
     public function shop(){
         $products = Product::paginate(20);
-        return view('product::frontend.shop',compact('products'));
+        if (Agent::get()->isMobile()){
+            return view('product::frontend.mobile.mobileShop',compact('products'));
+        }
     }
     /**
      * Display a listing of the resource.
@@ -54,7 +56,7 @@ class ProductController extends Controller
         $varieties = $product->varieties();
         $category = $product->categories()->latest()->first();
         if (Agent::get()->isMobile()){
-            return view('product::frontend.mobileShow',compact('product','varieties','category'));
+            return view('product::frontend.mobile.mobileShow',compact('product','varieties','category'));
         };
 
         return view('product::frontend.show',compact('product','varieties'));
@@ -62,7 +64,9 @@ class ProductController extends Controller
 
     public function category(Category $category){
         $products = $category->products;
-        return view('product::frontend.category',compact('products'));
+        if (Agent::get()->isMobile()){
+            return view('product::frontend.mobile.mobileCategory',compact('products'));
+        }
     }
 
     /**

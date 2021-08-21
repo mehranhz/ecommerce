@@ -18,7 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     ]);
 
 mix.js('resources/js/mobile.js', 'public/js')
-    .postCss('resources/css/mobile.css', 'public/css', [
+    .postCss('resources/css/mobile.css', 'public/css/mobile', [
         //
     ]);
 
