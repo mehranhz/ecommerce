@@ -1,9 +1,9 @@
 @extends('frontend.layouts.mobile.mobilePage')
 @section('css')
-<link rel="stylesheet" href="{{asset('css/mobile/cart.css')}}">
+    <link rel="stylesheet" href="{{asset('css/mobile/cart.css')}}">
 @endsection
 @section('content')
-    <section class="cart-section" style="min-height: 100vh ;padding-bottom: 5rem">
+    <section class="cart-section">
         <div class="container pd-v-3">
             @foreach(Cart::all() as $item)
                 @php
@@ -11,30 +11,29 @@
                     $product = $item[$type];
                 @endphp
 
-                <div style="padding: 1rem 0 ;background-color: black;border-radius:5px;margin: .5rem 0;box-shadow: 0px 0px 6px 2px #1f1f1f;
- ">
+                <div class="cart-item">
                     <div class="row">
                         <div class="col-7">
-                            <img src="{{$item['thumbnail']}}" class="responsive-image" alt="">
-
-
+                            <img src="{{$item['Product']->thumbnail}}" class="responsive-image" alt="">
                         </div>
-                        <div class="col-5" style="text-align: right">
-                            <div style="display: flex;flex-direction: column;height: 100%">
-                                <h4 style="font-size: 16px">{{$item['title']}}</h4>
-                                @if($type=='Variety')
-                                    @foreach($product->specifications() as $specification)
-                                        <span> {{$specification[0]}} :  {{$specification[1]}}</span>
-                                    @endforeach
-                                @endif
-                                <div class="d-flex" style="align-items: center;padding: .5rem 0">
-                                    <img src="{{asset('images/store.png')}}" alt="" style="width: 18px">
+
+                        <div class="col-5">
+                            <div class="cart-item-detail">
+                                <span class="item-title">{{$product->title}}</span>
+
+                                <div class="item-market">
+                                    <img src="{{asset('images/mobile/store.png')}}" alt="">
                                     <span style="font-size: 14px;padding:0 .5rem">Inferno</span>
                                 </div>
-                                <div class="d-flex" style="align-items: center;padding: .5rem 0">
-                                    <img src="{{asset('images/truck.png')}}" alt="" style="width: 18px">
+                                <div class="item-market">
+                                    <img src="{{asset('images/mobile/truck.png')}}" alt="">
                                     <span style="font-size: 14px;padding:0 .5rem">ارسال توسط اینفرنو</span>
                                 </div>
+                                @if(strtolower($type)=='variety')
+                                    @foreach($product->specifications() as $specification)
+                                        <span style="color: grey">{{$specification[0]}}-{{$specification[1]}}</span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -42,33 +41,31 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex space-between"
-                             style="text-align: right;padding-top: 2rem;align-items: center">
-                            <div class="d-flex space-between"
-                                 style="border: 1px solid #434343;border-radius: 5px;padding: .5rem 0;align-items: center">
-                                <div style="padding: 0 .5rem">
+                        <div class="cart-item-footer">
+                            <div class="quantity-control">
+                                <div class="quantity-control-btn">
                                     <form action="{{route('cart.add',['id'=>$product->id])}}" method="post"
                                           id="add-to-cart-{{$product->id}}">
                                         @csrf
                                         <input type="hidden" name="type" value="{{$type}}">
                                         @if($product->inventory > $item['quantity'])
-                                            <img src="{{asset('images/plus.png')}}" class="add-to-cart-btn"
-                                                 style="width: 18px;cursor: pointer " alt=""
+                                            <img src="{{asset('images/mobile/plus.png')}}" class="add-to-cart-btn"
+                                                 alt=""
                                                  onclick='document.getElementById("add-to-cart-{{$product->id}}").submit()'>
                                         @else
                                         @endif
                                     </form>
                                 </div>
-                                <span style="padding: 0 .5rem;font-size: 16px">{{$item['quantity']}}</span>
-                                <div style="padding: 0 .5rem">
+                                <span class="quantity-control-btn">{{$item['quantity']}}</span>
+                                <div class="quantity-control-btn">
                                     @if($item['quantity']==1)
                                         <form method="post" action="{{route('cart.remove.item',['item'=>$item['id']])}}"
                                               id="remove-from-cart-{{$product->id}}">
                                             @method('DELETE')
                                             @csrf
-                                            <img src="{{asset('images/trash-can.png')}}"
+                                            <img src="{{asset('images/mobile/trash-can.png')}}"
                                                  onclick='document.getElementById("remove-from-cart-{{$product->id}}").submit()'
-                                                 style="width: 18px;" alt="">
+                                                 alt="">
                                         </form>
                                     @else
                                         <form method="post" id="minus-item-{{$product->id}}"
@@ -76,20 +73,22 @@
                                             <input type="hidden" name="type" value="{{$type}}">
                                             <input type="hidden" name="number" value="{{-1}}">
                                             @csrf
-                                            <img src="{{asset('images/minus.png')}}"
+                                            <img src="{{asset('images/mobile/minus.png')}}"
                                                  onclick='document.getElementById("minus-item-{{$product->id}}").submit()'
-                                                 style="width: 18px;" alt="">
+                                                 alt="">
                                         </form>
                                     @endif
+
                                 </div>
                             </div>
 
-                            <div style="padding: .5rem 0">
+                            <div class="cart-item-price-wrap">
                                 @if($product->discount > 0)
-                                    <p style="font-size: 16px;color: #ef394e!important;margin: 0;">
-                                        تخفیف {{($product->basePrice/100) * $product->discount}}</p>
+                                    <span class="cart-item-discount">
+                                        تخفیف {{($product->basePrice/100) * $product->discount}}</span>
                                 @endif
-                                <p style="padding: 0 1rem;font-size: 18px;margin: 0">{{($product->basePrice - (($product->basePrice/100)*$product->discount)) * $item['quantity']}}</p>
+                                <span
+                                    class="cart-item-price">{{($product->basePrice - (($product->basePrice/100)*$product->discount)) * $item['quantity']}}</span>
                             </div>
 
                         </div>
@@ -98,23 +97,21 @@
             @endforeach
 
             @if(Cart::all()->count()>0)
-                <div
-                    style="display: flex;width: 100%!important;position: fixed; bottom: 2.5rem;padding: 1rem 0;right: 0;background-color:black ">
-                    <div style="padding: 0 1rem;margin: 0 1rem">
+                <div class="cart-approve-section">
+                    <div class="cart-approve-wrap">
                         <form action="{{route('order.register')}}" method="post">
                             @csrf
-                            <input type="submit" class="btn" value="تکمیل فرایند خرید"
-                                   style="background-color: #fed332;color: #222020!important;width: 150px;font-size: 18px;">
+                            <input type="submit" class="btn cart-approve-btn" value="تکمیل فرایند خرید">
                         </form>
                     </div>
-                    <div>
+                    <div class="cart-price-wrap">
                         <span>مبلغ قابل پرداخت</span>
-                        <span><h3>{{Cart::price()}}</h3></span>
+                        <span class="cart-price">{{Cart::price()}}</span>
                     </div>
                 </div>
 
             @else
-                <h2 style="text-align: center"> سبدخرید شما خالی است </h2>
+                <h2 class="text-center"> سبدخرید شما خالی است </h2>
             @endif
         </div>
     </section>

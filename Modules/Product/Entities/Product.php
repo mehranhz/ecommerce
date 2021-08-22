@@ -47,4 +47,8 @@ class Product extends Model
     public function return_requests(){
         return $this->belongsToMany(ReturnRequest::class);
     }
+
+    public function price(){
+        return $this->basePrice - (($this->basePrice/100) * $this->discount);
+    }
 }

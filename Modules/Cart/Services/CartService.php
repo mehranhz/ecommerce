@@ -6,9 +6,7 @@ namespace Modules\Cart\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
 use Modules\Product\Entities\Product;
-use Modules\Product\Entities\Variety;
 
 class CartService
 {
@@ -27,32 +25,15 @@ class CartService
 
     /**
      * @param $item
-     * @param array|null $data
      * @return $this
      * adding item to cart
      */
-    public function put($item, array $data = null)
+    public function put(array $item)
     {
-        if (is_null($data)) {
-            $cartItem = $item;
-        } else {
-            $cartItem = [
-                'id' => Str::random(10),
-                'title' => $item['product']->title,
-                'thumbnail' => $item['product']->thumbnail,
-                'quantity' => $data['quantity'],
-                'price' => $data['price'] * $data['quantity'],
-                'specifications' => $data['specifications'],
-                'subject_id' => $item['variety'] ? $item['variety']->id : $item['product']->id,
-                'subject_class' => $item['variety'] ? get_class($item['variety']) : get_class($item['product']),
-            ];
-        }
-        // add created item to cart collection
-        $this->cart->put($cartItem['id'], $cartItem);
-//        session()->put('cart', $this->cart);
+        $this->cart->put($item['id'], $item);
 
         // create or replace cart cookie
-        Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 365);
+        $this->saveCookie(365);
         return $this;
     }
 
@@ -106,7 +87,7 @@ class CartService
         if (isset($item['subject_class']) && isset($item['subject_id'])) {
             $object = $item['subject_class']::find($item['subject_id']);
             $item[class_basename($item['subject_class'])] = $object;
-            if (class_basename($object) == 'Variety') {
+            if (class_basename($object) !== 'Product') {
                 $item['Product'] = Product::find($object->parent);
             }
         }
@@ -126,7 +107,6 @@ class CartService
             $item = $item->merge([
                 'quantity' => $item['quantity'] + $option,
             ]);
-
         }
         if (is_array($option)) {
             $item = $item->merge($option);
@@ -154,13 +134,10 @@ class CartService
             $this->cart = $this->cart->filter(function ($item) use ($key) {
                 if ($key instanceof Model) {
                     return ($item['subject_id' != $key['subject_id']]) && ($item['subject_class'] != get_class($key));
-
                 }
                 return $key != $item['id'];
             });
-//            session()->put('cart', $this->cart);
-            Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 7 * 4 * 12);
-
+            $this->saveCookie(365);
         }
         return false;
     }
@@ -171,7 +148,7 @@ class CartService
     public function flush()
     {
         $this->cart = collect([]);
-        Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * 365);
+        $this->saveCookie(365);
     }
 
 
@@ -196,16 +173,22 @@ class CartService
      */
     public function itemPrice($item)
     {
-        $type = isset($item['Variety']) ? 'Variety' : 'Product';
-        if ($this->has($item[$type])) {
-            $price = ($item[$type]->basePrice - (($item[$type]->basePrice / 100) * $item[$type]->discount)) * $item['quantity'];
+        if ($this->has($item[class_basename($item['subject_class'])])) {
+            $object =$item[class_basename($item['subject_class'])];
+            $price = $object->price() * $item['quantity'];
             return $price;
         }
+        return 0;
     }
 
     public function itemType($item)
     {
-        return isset($item['Variety']) ? 'Variety' : 'Product';
+        return class_basename($item['subject_class']);
+    }
+
+    public function saveCookie($days){
+        Cookie::queue('cart', $this->cart->toJson(), 60 * 24 * $days);
+
     }
 
 }

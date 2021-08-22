@@ -63,10 +63,10 @@ class ProductController extends Controller
     }
 
     public function category(Category $category){
-        $products = $category->products;
-        if (Agent::get()->isMobile()){
+        $products = $category->childsProduct();
+//        if (Agent::get()->isMobile()){
             return view('product::frontend.mobile.mobileCategory',compact('products'));
-        }
+//        }
     }
 
     /**

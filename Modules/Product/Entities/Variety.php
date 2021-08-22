@@ -16,6 +16,9 @@ class Variety extends Model
         },explode("\n",$this->specifications));
         return $specifications;
     }
+    public function price(){
+        return $this->basePrice - (($this->basePrice/100) * $this->discount);
+    }
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\VarietyFactory::new();

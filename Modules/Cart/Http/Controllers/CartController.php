@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Modules\Cart\Services\Cart;
 use Modules\Order\Entities\Order;
 use Modules\Product\Entities\Product;
@@ -42,18 +43,16 @@ class CartController extends Controller
         * also if the item is a variety of a product get the product itself
         */
         $type = strtolower($request->type) == 'variety' ? 'variety' : 'product';
-        $variety = $type == 'variety' ? Variety::find($id) : null;
-        $product = $type =='variety' ? Product::find($variety->parent) : Product::find($id);
-        $item = ['product' => $product, 'variety' => $variety];
+        $item = $type == 'variety' ? Variety::find($id) : Product::find($id);
 
 
         /*
          * adding item to cart or increase its quantity if it already exists in cart
          */
-        if (Cart::has($item[$type])) {
+        if (Cart::has($item)) {
 
             $quantity = isset($request->quantity) ?? 1;
-            $cartItem = Cart::get($item[$type]);
+            $cartItem = Cart::get($item);
 
             /*
              * prevent negative or zero quantity
@@ -63,20 +62,21 @@ class CartController extends Controller
             }
 
             /* update item quantity */
-            if ($item[$type]->inventory >= $cartItem['quantity'] + $number) {
-                Cart::update($item[$type], $number == 0 ? 1 : $number);
+            if ($item->inventory >= $cartItem['quantity'] + $number) {
+                Cart::update($item, $number == 0 ? 1 : $number);
             }
 
-
+            return redirect(route('cart.index'));
             // if item doesn't exist in cart add it
-        } else {
-
-            Cart::put($item, [
-                'quantity' => 1,
-                'price' => $item['variety'] == null ? $product->basePrice : $variety->basePrice,
-                'specifications' => isset($variety) ? $variety->specifications : null
-            ]);
         }
+        $item = [
+            'id' => Str::random(10),
+            'quantity' => 1,
+            'subject_id' => $item->id,
+            'subject_class' => get_class($item),
+        ];
+        Cart::put($item);
+
         return redirect(route('cart.index'));
     }
 
@@ -85,8 +85,7 @@ class CartController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public
-    function quantityChange(Request $request)
+    public function quantityChange(Request $request)
     {
 
         $data = $request->validate([
@@ -107,7 +106,7 @@ class CartController extends Controller
             return response(['status' => 'success'], 200);
 
         }
-            return response(['status' => error], 404);
+        return response(['status' => error], 404);
 
     }
 
