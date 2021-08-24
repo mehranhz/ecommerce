@@ -74,7 +74,12 @@ class CartService
         $cart = $this->cart->map(function ($item) {
             return $this->withObject($item);
         });
-        return $cart;
+        $items = [];
+        foreach ($cart as $key=>$value){
+            $items[]= $value;
+        }
+
+        return htmlspecialchars(json_encode($items, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
     }
 
     /**

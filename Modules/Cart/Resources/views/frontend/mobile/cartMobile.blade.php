@@ -3,23 +3,25 @@
     <link rel="stylesheet" href="{{asset('css/mobile/cart.css')}}">
 @endsection
 @section('content')
-    <section class="cart-section">
-        <div class="container pd-v-3">
-            @foreach(Cart::all() as $item)
-                @php
-                    $type = Cart::itemType($item);
-                    $product = $item[$type];
-                @endphp
+    <section class="cart-section" id="cart" >
 
-                <div class="cart-item">
+        <div class="container pd-v-3">
+{{--            <h1>@{{cartItems}}</h1>--}}
+{{--            @foreach(Cart::all() as $item)--}}
+{{--                @php--}}
+{{--                    $type = Cart::itemType($item);--}}
+{{--                    $product = $item[$type]->toJson();--}}
+{{--                @endphp--}}
+
+                <div class="cart-item" v-for="item in cartItems">
                     <div class="row">
                         <div class="col-7">
-                            <img src="{{$item['Product']->thumbnail}}" class="responsive-image" alt="">
+                            <img v-bind:src="item.Product.thumbnail" class="responsive-image" alt="">
                         </div>
 
                         <div class="col-5">
                             <div class="cart-item-detail">
-                                <span class="item-title">{{$product->title}}</span>
+                                <span class="item-title">@{{ item.Product.title }}</span>
 
                                 <div class="item-market">
                                     <img src="{{asset('images/mobile/store.png')}}" alt="">
@@ -29,11 +31,11 @@
                                     <img src="{{asset('images/mobile/truck.png')}}" alt="">
                                     <span style="font-size: 14px;padding:0 .5rem">ارسال توسط اینفرنو</span>
                                 </div>
-                                @if(strtolower($type)=='variety')
-                                    @foreach($product->specifications() as $specification)
-                                        <span style="color: grey">{{$specification[0]}}-{{$specification[1]}}</span>
-                                    @endforeach
-                                @endif
+{{--                                @if(strtolower($type)=='variety')--}}
+{{--                                    @foreach($product->specifications() as $specification)--}}
+{{--                                        <span style="color: grey">{{$specification[0]}}-{{$specification[1]}}</span>--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
                             </div>
                         </div>
                     </div>
@@ -44,80 +46,96 @@
                         <div class="cart-item-footer">
                             <div class="quantity-control">
                                 <div class="quantity-control-btn">
-                                    <form action="{{route('cart.add',['id'=>$product->id])}}" method="post"
-                                          id="add-to-cart-{{$product->id}}">
+{{--                                    <form action="{{route('cart.add',['id'=>$product->id])}}" method="post"--}}
+{{--                                          id="add-to-cart-{{$product->id}}">--}}
+                                    <form>
                                         @csrf
-                                        <input type="hidden" name="type" value="{{$type}}">
-                                        @if($product->inventory > $item['quantity'])
+{{--                                        <input type="hidden" name="type" value="{{$type}}">--}}
+{{--                                        @if($product->inventory > $item['quantity'])--}}
                                             <img src="{{asset('images/mobile/plus.png')}}" class="add-to-cart-btn"
                                                  alt=""
-                                                 onclick='document.getElementById("add-to-cart-{{$product->id}}").submit()'>
-                                        @else
-                                        @endif
+                                                 >
+{{--                                        @else--}}
+{{--                                        @endif--}}
                                     </form>
                                 </div>
-                                <span class="quantity-control-btn">{{$item['quantity']}}</span>
+                                <span class="quantity-control-btn">@{{item.quantity}}</span>
                                 <div class="quantity-control-btn">
-                                    @if($item['quantity']==1)
-                                        <form method="post" action="{{route('cart.remove.item',['item'=>$item['id']])}}"
-                                              id="remove-from-cart-{{$product->id}}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <img src="{{asset('images/mobile/trash-can.png')}}"
-                                                 onclick='document.getElementById("remove-from-cart-{{$product->id}}").submit()'
-                                                 alt="">
-                                        </form>
-                                    @else
-                                        <form method="post" id="minus-item-{{$product->id}}"
-                                              action="{{route('cart.add',['id'=>$product->id])}}">
-                                            <input type="hidden" name="type" value="{{$type}}">
-                                            <input type="hidden" name="number" value="{{-1}}">
-                                            @csrf
+{{--                                    @if($item['quantity']==1)--}}
+{{--                                        <form method="post" action="{{route('cart.remove.item',['item'=>$item['id']])}}"--}}
+{{--                                              id="remove-from-cart-{{$product->id}}">--}}
+{{--                                            @method('DELETE')--}}
+{{--                                            @csrf--}}
+{{--                                            <img src="{{asset('images/mobile/trash-can.png')}}"--}}
+{{--                                                 onclick='document.getElementById("remove-from-cart-{{$product->id}}").submit()'--}}
+{{--                                                 alt="">--}}
+{{--                                        </form>--}}
+{{--                                    @else--}}
+{{--                                        <form method="post" id="minus-item-{{$product->id}}"--}}
+{{--                                              action="{{route('cart.add',['id'=>$product->id])}}">--}}
+{{--                                            <input type="hidden" name="type" value="{{$type}}">--}}
+{{--                                            <input type="hidden" name="number" value="{{-1}}">--}}
+{{--                                            @csrf--}}
                                             <img src="{{asset('images/mobile/minus.png')}}"
-                                                 onclick='document.getElementById("minus-item-{{$product->id}}").submit()'
+
                                                  alt="">
-                                        </form>
-                                    @endif
+{{--                                        </form>--}}
+{{--                                    @endif--}}
 
                                 </div>
                             </div>
 
                             <div class="cart-item-price-wrap">
-                                @if($product->discount > 0)
-                                    <span class="cart-item-discount">
-                                        تخفیف {{($product->basePrice/100) * $product->discount}}</span>
-                                @endif
-                                <span
-                                    class="cart-item-price">{{($product->basePrice - (($product->basePrice/100)*$product->discount)) * $item['quantity']}}</span>
+{{--                                @if($product->discount > 0)--}}
+{{--                                    <span class="cart-item-discount">--}}
+{{--                                        تخفیف {{($product->basePrice/100) * $product->discount}}</span>--}}
+{{--                                @endif--}}
+{{--                                <span--}}
+{{--                                    class="cart-item-price">{{($product->basePrice - (($product->basePrice/100)*$product->discount)) * $item['quantity']}}</span>--}}
                             </div>
 
                         </div>
                     </div>
                 </div>
-            @endforeach
+{{--            @endforeach--}}
 
-            @if(Cart::all()->count()>0)
-                <div class="cart-approve-section">
-                    <div class="cart-approve-wrap">
-                        <form action="{{route('order.register')}}" method="post">
-                            @csrf
-                            <input type="submit" class="btn cart-approve-btn" value="تکمیل فرایند خرید">
-                        </form>
-                    </div>
-                    <div class="cart-price-wrap">
-                        <span>مبلغ قابل پرداخت</span>
-                        <span class="cart-price">{{Cart::price()}}</span>
-                    </div>
-                </div>
+{{--            @if(Cart::all()->count()>0)--}}
+{{--                <div class="cart-approve-section">--}}
+{{--                    <div class="cart-approve-wrap">--}}
+{{--                        <form action="{{route('order.register')}}" method="post">--}}
+{{--                            @csrf--}}
+{{--                            <input type="submit" class="btn cart-approve-btn" value="تکمیل فرایند خرید">--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                    <div class="cart-price-wrap">--}}
+{{--                        <span>مبلغ قابل پرداخت</span>--}}
+{{--                        <span class="cart-price">{{Cart::price()}}</span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-            @else
-                <h2 class="text-center"> سبدخرید شما خالی است </h2>
-            @endif
+{{--            @else--}}
+{{--                <h2 class="text-center"> سبدخرید شما خالی است </h2>--}}
+{{--            @endif--}}
         </div>
     </section>
 @endsection
 @section('scripts')
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+
+        const app = Vue.createApp({
+            data(){
+                return {
+                    cartItems :JSON.parse(JSON.stringify({!! htmlspecialchars_decode(Cart::all()) !!})),
+                }
+            }
+        });
+        app.mount('#cart');
+    </script>
+
     <script>
         function changeQuantity(event, id, cartName = null) {
             $.ajaxSetup({
