@@ -6,6 +6,7 @@ use App\Helpers\Agent\Agent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variety;
@@ -13,10 +14,16 @@ use Modules\Product\Entities\Variety;
 class ProductController extends Controller
 {
     public function shop(){
-        $products = Product::paginate(20);
-        if (Agent::get()->isMobile()){
+
+        $products = Cache::remember('products.all',60*5,function (){
+           return Product::all();
+        });
+
+//        $products = Product::paginate(20);
+        if (Agent::get()->isphone()){
             return view('product::frontend.mobile.mobileShop',compact('products'));
         }
+        return view('product::frontend.shop',compact('products'));
     }
     /**
      * Display a listing of the resource.
@@ -54,9 +61,10 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $varieties = $product->varieties();
+        $comments = $product->comments->where('approved',true);
         $category = $product->categories()->latest()->first();
-        if (Agent::get()->isMobile()){
-            return view('product::frontend.mobile.mobileShow',compact('product','varieties','category'));
+        if (Agent::get()->isPhone()){
+            return view('product::frontend.mobile.mobileShow',compact('product','varieties','category','comments'));
         };
 
         return view('product::frontend.show',compact('product','varieties'));

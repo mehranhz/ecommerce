@@ -13,6 +13,10 @@ class OrderController extends Controller
 {
     public function register(Request $request)
     {
+        if (!auth()->user()){
+            return redirect(route('login'));
+        }
+
         $prevOrders = Order::where('status', 'unpaid')->where('user_id', auth()->user()->id)->get();
         foreach ($prevOrders as $prevOrder) {
             $prevOrder->delete();
@@ -39,7 +43,7 @@ class OrderController extends Controller
                     'order_id' => $order->id,
                     'item_id' => $cartItem[$itemType]->id,
                     'item_type' => $itemType,
-                    'price'=>$cartItem["price"] - (($cartItem["price"]/100) *$cartItem["$itemType"]->discount),
+                    'price'=>Cart::price(),
                     'quantity' => $cartItem["quantity"]
                 ];
             })->toArray());
@@ -57,6 +61,7 @@ class OrderController extends Controller
     }
 
     public function payment(Order $order){
+        Cart::flush();
         return view('order::frontend.mobile.payment',compact('order'));
     }
 

@@ -13,7 +13,24 @@
                         </a>
 
                         <div class="c-product-info">
-                            <img src="{{asset('images/mobile/save.png')}}" alt="">
+
+                                <form style="display: {{$product->savedItem()?'none':''}}" action="{{route('profile.saveProduct',['product'=>$product->id])}}"
+                                      id="save-{{$product->id}}" method="post">
+                                    @csrf
+                                    <img src="{{asset('images/mobile/save.png')}}" alt=""
+                                         onclick='link({{$product->id}})' id="s-i-{{$product->id}}">
+{{--                                    document.getElementById("save-{{$product->id}}").submit()--}}
+                                </form>
+
+                                <form style="display: {{$product->savedItem()?'':'none'}}" action="{{route('profile.deleteProduct',['product'=>$product->id])}}"
+                                      id="delete-{{$product->id}}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <img src="{{asset('images/mobile/saved.png')}}" alt=""
+                                         onclick='unlink({{$product->id}})' id="us-i-{{$product->id}}">
+{{--                                    document.getElementById("delete-{{$product->id}}").submit()--}}
+                                </form>
+
                             <h3>
                                 <a href="{{route('product.show',['product'=>$product->id])}}"
                                    class="product-tile-title">{{$product->title}}</a>
@@ -36,9 +53,38 @@
                             {{$product->basePrice}} TM
                         </h4>
                     </div>
-
                 @endforeach
             </div>
         </div>
     </section>
+    <script>
+
+        function unlink(id){
+            document.getElementById('delete-'+id).style.display= "none"
+            document.getElementById('save-'+id).style.display= "block"
+            axios.delete('http://localhost:8000/profile/deleteProduct/'+id).then(response=>{
+
+                swal({
+                    text: 'محصول از لیست شما حذف شد',
+                    icon:'warning',
+                    button:false,
+                    timer:1500
+                })
+            });
+        }
+        function link(id){
+            document.getElementById('save-'+id).style.display= "none"
+            document.getElementById('delete-'+id).style.display= "block"
+            axios.post('http://localhost:8000/profile/saveProduct/'+id).then(response=>{
+
+                swal({
+                    text: 'محصول به لیست شما اضافه شد',
+                    icon:'success',
+                    button:false,
+                    timer:1500
+                })
+            });
+        }
+
+    </script>
 @endsection

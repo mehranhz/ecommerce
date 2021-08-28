@@ -230,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Cart'=>\Modules\Cart\Services\Cart::class,
         'Agent'=>\app\Helpers\Agent\Agent::class,
+        'Product'=>\Modules\Product\Entities\Product::class
     ],
 
 ];

@@ -74,12 +74,16 @@ class CartService
         $cart = $this->cart->map(function ($item) {
             return $this->withObject($item);
         });
+       return $cart;
+    }
+
+    public function serialized(){
+        $cart = $this->all();
         $items = [];
         foreach ($cart as $key=>$value){
             $items[]= $value;
         }
-
-        return htmlspecialchars(json_encode($items, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
+        return json_encode($items, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -161,8 +165,7 @@ class CartService
      * @return mixed
      * cart total price
      */
-    public function price($options = null)
-    {
+    public function price($options = null){
         $cart = $this->all();
         $price = $cart->sum(function ($item) {
             return $this->itemPrice($item);
@@ -186,8 +189,7 @@ class CartService
         return 0;
     }
 
-    public function itemType($item)
-    {
+    public function itemType($item){
         return class_basename($item['subject_class']);
     }
 

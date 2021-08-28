@@ -8,5 +8,6 @@
 @include('frontend.layouts.mobile.bottomNav')
 @yield('scripts')
 @include('frontend.layouts.footer')
-
-
+@yield('scripts')
+</body>
+</html>

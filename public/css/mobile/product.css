@@ -1,10 +1,11 @@
-.product-card{
+.product-card {
     background-color: #040404;
-    padding:1rem;
+    padding: 1rem;
     border-radius: 10px;
-    margin-bottom:1rem ;
+    margin-bottom: 1rem;
     box-shadow: 0 2px 6px 1px rgb(25 25 25);
 }
+
 .product-categories-breadcrumb {
     display: flex;
     flex-direction: row-reverse;
@@ -70,99 +71,197 @@
     padding: .25rem;
 }
 
-.product-recommendations{
+.product-recommendations {
     padding: 0rem .5rem;
     display: flex;
     flex-direction: row-reverse;
     align-items: end;
 }
-.product-recommendations a{
+
+.product-recommendations a {
     padding: 0 .5rem;
     color: #FFFFFF !important;
     text-align: right;
     direction: rtl;
 }
-.variety-container{
+
+.variety-container {
     direction: rtl;
     color: #ffffff;
 }
 
-.product-price-container{
+.product-price-container {
     direction: ltr;
     text-align: left;
 }
 
-div.product-discount{
+div.product-discount {
     padding: 1rem 0;
     display: flex;
     align-items: center;
 }
-span.product-old-price{
+
+span.product-old-price {
     color: #858585;
     text-decoration: line-through;
     font-size: 18px;
     padding: 0 1rem;
 }
-span.product-discount{
 
-    font-weight:bold;
+span.product-discount {
+
+    font-weight: bold;
     color: #ffffff;
     background-color: #fb3449;
     border-radius: 15px;
     padding: .25rem .5rem;
 }
-.product-price{
+
+.product-price {
     direction: rtl;
     font-size: 20px;
     color: #FFFFFF;
 }
-.product-specifications{
+
+.product-specifications {
     direction: rtl;
     text-align: right;
 }
-.product-specifications h3,.product-review h3{
+
+.product-specifications h3, .product-review h3 {
     color: #ffffff;
     font-size: 20px;
     padding: 1rem 0;
 }
-.review-header{
+
+.review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.review-header a{
+
+.review-header a {
     font-size: 18px;
 }
-.product-review{
+
+.product-review {
     color: #ffffff;
 }
-.product-review img{
-    display:block !important;
-    max-width:100% !important;
-    height:auto !important;
-    margin-right:auto !important;
-    margin-left:auto !important;
+
+.product-review img {
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
+
 .table-dark {
     color: #fff !important;
     background-color: #151515;
-    border: 1px solid black!important;
+    border: 1px solid black !important;
 }
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
     /*background-color: #212529;*/
 }
-tr{
-    border: 1px solid black!important;
+
+tr {
+    border: 1px solid black !important;
 
 }
 
-.product-specifications-select :focus{
-    box-shadow:0 0 0 0.2rem #fed332 !important;
+.product-specifications-select :focus {
+    box-shadow: 0 0 0 0.2rem #fed332 !important;
 }
 
-.clickable-btn{
+.clickable-btn {
     background-color: #fed332;
     color: #000000;
+}
+
+.out-of-stock {
+    text-align: center;
+    font-size: 16px;
+    color: #cbcbcb;
+}
+
+.out-of-stock h4 {
+    text-align: center;
+    font-weight: 800;
+    color: #868686;
+}
+.full-review img{
+    display:block;
+    max-width:100%;
+    height:auto;
+    margin-right:auto;
+    margin-left:auto
+}
+.comments-header{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #a2a2a2;
+}
+.comments-header h3{
+    font-size: 20px;
+    padding: 1rem 0;
+    margin: 0 !important;
+
+}
+.add-comment-btn{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    justify-content: space-between;
+    width: fit-content;
+    border: 1px solid #fed332;
+    border-radius: 8px;
+    padding: 0 1rem;
+    color: #fed332;
+}
+.add-comment-btn:hover{
+    color: #fed332;
+    text-decoration: none;
+}
+.add-comment-btn::before{
+    padding: 0 .5rem;
+    content: "+";
+    font-size: 25px;
+    color: #fed332;
+}
+
+.comments-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.comments{
+    padding: 1rem ;
+}
+
+.comment-header{
+    font-size: 16px;
+}
+.comment-header span{
+    padding:.25rem 0 ;
+    display: block;
+}
+.comment-body{
+    font-size: 14px;
+    padding: 0 ;
+}
+.modal-comments{
+    padding: 0;
+}
+.modal-comment{
+    padding: .5rem 1rem;
+    background-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px 1px #333333;
+    margin-bottom: 1rem;
 }

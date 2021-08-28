@@ -7,5 +7,7 @@
     "Category": true,
     "Order": true,
     "Payment": true,
-    "Profile": true
+    "Profile": true,
+    "Commentent": true,
+    "Comment": true
 }

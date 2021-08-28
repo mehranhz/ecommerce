@@ -27,7 +27,14 @@ class CartController extends Controller
         return view('cart::frontend.cart');
     }
 
+    public function serialized(){
+        return Cart::serialized();
+    }
 
+    public function addItem(Request $request ,$id){
+        $this->add($request,$id);
+        return Cart::serialized();
+    }
     /**
      * @param Request $request
      * @param $id
@@ -75,9 +82,22 @@ class CartController extends Controller
             'subject_id' => $item->id,
             'subject_class' => get_class($item),
         ];
-        Cart::put($item);
 
+        Cart::put($item);
         return redirect(route('cart.index'));
+    }
+
+
+    public function reduce($key){
+        if (Cart::has($key)){
+
+            $item = Cart::get($key);
+
+            if($item['quantity']>1){
+                Cart::update($key,-1);
+            }
+        }
+        return Cart::serialized();
     }
 
 
@@ -115,12 +135,15 @@ class CartController extends Controller
      * @param $item
      * @return \Illuminate\Http\RedirectResponse
      */
-    public
-    function removeItem($item)
+    public function remove($item)
     {
         Cart::delete($item);
         return back();
     }
 
+    public function removeItem($item){
+        Cart::delete($item);
+        return Cart::serialized();
+    }
 
 }

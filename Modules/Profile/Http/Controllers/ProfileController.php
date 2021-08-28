@@ -5,15 +5,53 @@ namespace Modules\Profile\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Order\Entities\Order;
 use Modules\Order\Entities\ReturnRequest;
+use Modules\Product\Entities\Product;
 
 class ProfileController extends Controller
 {
+    public function setReminder(Product $product){
+        $user = auth()->user();
+        if ($user !== null){
+            DB::table('user_product')->insert([
+                'user_id'=>$user->id,
+                'product_id'=>$product->id,
+                'type'=>'reminder'
+            ]);
+        }
+        return true;
+    }
 
+    public function unsetReminder(Product $product){
+        if ($product->hasReminder()){
+            $product->unsetReminder();
+        }
+        return true;
+    }
+
+    public function saveProduct(Product $product){
+        $user = auth()->user();
+        if ($user !== null){
+            DB::table('user_product')->insert([
+                'user_id'=>$user->id,
+                'product_id'=>$product->id,
+                'type'=>'save'
+            ]);
+        }
+        return true;
+    }
+
+    public function deleteProduct(Product $product){
+        if($product->savedItem()){
+            $product->unlink();
+        }
+        return true;
+    }
 
     public function myOrders(){
-        $orders = auth()->user()->orders->where('address_id','!=',null);
+        $orders = auth()->user()->orders->where('address_id','!=',null)->sortByDesc('created_at');
         return view('profile::frontend.mobile.orders',compact('orders'));
     }
 

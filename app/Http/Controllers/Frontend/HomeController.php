@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function home(){
-        if (Agent::get()->isMobile()){
+    public function home(Request $request){
+
+//        dd($request->header('User_Agent'));
+        if (Agent::get()->isPhone()){
             return view('mobileIndex');
         }
 

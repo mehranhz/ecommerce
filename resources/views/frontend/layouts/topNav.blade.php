@@ -1,14 +1,13 @@
 <header>
-    @include('frontend.layouts.mobile.mobileTopBar')
-    <div class="spacer d-none d-md-block">
-        &nbsp;
-    </div>
-    <div class="dnav d-none d-md-flex" style="margin-top: 3rem !important;">
-        <ul>
-            <li><a href="{{route('shop')}}">فروشگاه</a></li>
-            <li><a href="">گالری</a></li>
-            <li><a href="">مطالب</a></li>
-            <li><a href="">بیوگرافی</a></li>
+    @include('frontend.layouts.topBar')
+    <div class="row d-nav"  id="d-nav" >
+        <ul style="display: flex;flex-direction: row-reverse;list-style: none;margin: 0!important;">
+            <li style="padding: 0 1rem;margin: 0">
+                <a href="{{route('shop')}}" class="clickable">دسته بندی ها</a>
+            </li>
+            <li style="padding: 0 1rem;margin: 0">
+                <a href="{{route('shop')}}" class="clickable">فروشگاه</a>
+            </li>
         </ul>
     </div>
 </header>

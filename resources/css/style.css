@@ -1,16 +1,12 @@
-header {
-    z-index: 10;
-    top: 0;
-    margin: 0 !important;
-    min-width: 100%;
-    padding: 1rem 0rem !important;
-    background-color: #222020;
-    position: relative;
-    box-shadow: -1px 5px 20px 7px black;
-}
 
-header a{
-    color: #ff487e !important;
+header{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    z-index: 1;
+    background-color: black;
+    margin-bottom: 1rem;
 }
 hr{
     padding: 0 !important;
@@ -48,44 +44,30 @@ hr{
     background-color: #222020;
 }
 
-
-
-
-
-/*.bottom-nav li{*/
-/*    position: absolute;*/
-/*    padding: 0 1rem !important;*/
-/*    margin: 0 1rem !important;*/
-/*}*/
-
-
-
-
-.banner-1 {
-    padding: 1rem;
-}
-
-
-
-.dnav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
-.dnav li{
-    display: inline-block;
-    padding: 0 1rem !important;
-}
-.dnav ul{
-    text-align: right;
-    direction:rtl ;
-    padding: 0 2rem;
+.d-nav{
     margin: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: .5rem 2rem;
+    z-index: -1 !important;
+    background-color: black;
+    width: 100%;
+    box-shadow: -3px 2px 3px 1px #080808;
+    position: absolute;
 }
 
 
 
 
+.moved-up{
+    transform: translateY(-100%);
+    transition: .5s;
+}
+.moved-down{
+    transform: translateY(0px);
+    transition: .5s;
+
+}
 
 
 
