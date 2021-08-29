@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <section class="cart-section" id="cart" >
-        <cart-component></cart-component>
+        <mobileCart-component></mobileCart-component>
     </section>
 
 @endsection

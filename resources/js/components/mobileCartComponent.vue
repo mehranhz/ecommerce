@@ -97,7 +97,7 @@ export default {
             let id = item.Product.id;
             if ('Variety' in item){
                 data.type = 'Variety'
-                id = item.Variety.id
+                 id = item.Variety.id
             }
             axios.post('http://localhost:8000/cart/addItem/' + id, data).then(response => this.cartItems = response.data)
         },
