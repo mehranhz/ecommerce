@@ -14,6 +14,7 @@ class GhasedakChannel
 
     public function send($notifiable, Notification $notification)
     {
+
         $api = $this->api();
         $message = $this->getMessage($notification);
         $receptor = $this->getPhone($notification);

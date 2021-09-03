@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeNotification extends Notification
+class WelcomeNotification extends Notification implements SmsableInterface,ShouldQueue
 {
     use Queueable;
 
@@ -37,6 +37,7 @@ class WelcomeNotification extends Notification
     }
 
     public function getMessage(){
+        sleep(60);
         return [
             'message'=>__('messages.RegistrationWelcome',['name'=>$this->userName]),
         ];
