@@ -12,11 +12,11 @@
 
                         <div class="item-market">
                             <img src="" alt="">
-                            <span style="font-size: 14px;padding:0 .5rem">Inferno</span>
+                            <span class="px-1">Inferno</span>
                         </div>
                         <div class="item-market">
                             <img src="" alt="">
-                            <span style="font-size: 14px;padding:0 .5rem">ارسال توسط اینفرنو</span>
+                            <span class="px-1">ارسال توسط اینفرنو</span>
                         </div>
 
                     </div>

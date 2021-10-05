@@ -38,6 +38,7 @@ body *{
 
 
 /* top bar styles for mobile screens*/
+
 .top-bar {
     position: fixed;
     top: 0 !important;

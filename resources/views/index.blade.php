@@ -4,8 +4,39 @@
     <link rel="stylesheet" href="{{asset('css/slider.css')}}">
 @endsection
 @section('content')
-    <section class="section1">
-
+    <section class="section1 pb-4">
+       <div class="d-flex justify-content-center px-5 overflow-hidden">
+           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 1440px;height:720px;overflow: hidden;border-radius: 15px">
+               <ol class="carousel-indicators">
+                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                   <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                   <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+               </ol>
+               <div class="carousel-inner" style="height: 100%">
+                   <div class="carousel-item active" style="height: 100%">
+                       <img class="d-block w-100 " src="{{asset('images/slides/1.jpg')}}" alt="First slide" style="height: 100%">
+                       <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0,0,0,0.64)">
+                           <h3 style="color: white">پیش فروش محصول جدید اینفرنو</h3>
+                           <p>...</p>
+                       </div>
+                   </div>
+                   <div class="carousel-item" style="height: 100%">
+                       <img class="d-block w-100 responsive-image" src="{{asset('images/slides/2.jpg')}}" alt="Second slide" style="height: 100%">
+                   </div>
+                   <div class="carousel-item" style="height: 100%">
+                       <img class="d-block w-100 responsive-image" src="{{asset('images/slides/3.jpg')}}" alt="Third slide" style="height: 100%">
+                   </div>
+               </div>
+               <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                   <span class="sr-only">Previous</span>
+               </a>
+               <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                   <span class="sr-only">Next</span>
+               </a>
+           </div>
+       </div>
     </section>
 
     <section class="section2">
@@ -23,6 +54,7 @@
             </div>
         </div>
     </section>
+
     <section class="section4">
         <div class="container">
             <div class=" overflow-auto" style="display: flex">
@@ -86,4 +118,9 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+    <script>
+        $('.carousel').carousel({
+            interval: 1000
+        })
+    </script>
 @endsection

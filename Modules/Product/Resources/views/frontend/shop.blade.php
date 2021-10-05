@@ -1,11 +1,36 @@
 @extends('frontend.layouts.page')
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/mobile/shop.css')}}">
+    <link rel="stylesheet" href="{{asset('css/shop.css')}}">
 @endsection
 @section('content')
     <section class="products-section pd-v-3">
-        <div class="container">
-            <div class="row">
+
+        <div class="container-fluid d-flex flex-md-row-reverse">
+            <aside style="height: 100vh;width: 20%;" class="p-4">
+                <div class="side-section">
+                    <div class="side-section-header">
+                        <span>
+                            دسته بندی ها
+                        </span>
+                    </div>
+                    <ul>
+                        <li>سته بندی</li>
+                        <li>سته بندی</li>
+                        <li>سته بندی</li>
+                        <li>سته بندی</li>
+                        <li>سته بندی</li>
+                    </ul>
+                </div>
+            </aside>
+            <div class="row products-wrapper mt-4 " style="width: 80%;">
+                <div class="col-12 shop-sort-filter d-flex flex-md-row-reverse">
+                    <p>مرتب سازی بر اساس :</p>
+                    <a href="" class="shop-sort-item"><span style="background:  #afa2fa;padding: 0 5px;border-radius: 7px">پربازدیدترین</span></a>
+                    <a href="" class="shop-sort-item">پرفروش ترین</a>
+                    <a href="" class="shop-sort-item">محبوب ترین</a>
+                    <a href="" class="shop-sort-item">گران ترین</a>
+                    <a href="" class="shop-sort-item">ارزان ترین</a>
+                </div>
                 @foreach($products as $product)
                     <div class="col-12 col-sm-12 col-md-12 col-lg-4 product">
                         <a href="{{route('product.show',['product'=>$product->id])}}">

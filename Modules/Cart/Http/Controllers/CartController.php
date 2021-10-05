@@ -28,6 +28,7 @@ class CartController extends Controller
     }
 
     public function serialized(){
+//        var_dump(Cart::serialized());
         return Cart::serialized();
     }
 
