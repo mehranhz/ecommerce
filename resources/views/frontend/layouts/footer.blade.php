@@ -1,3 +1,8 @@
+
+<footer style="width: 100%;min-height: 200px;background-color: rgba(5,5,5,0.91)
+">
+
+</footer>
 <script>
     var lastScrollTop = 0;
 
@@ -17,3 +22,5 @@
 </script>
 <script src="{{asset('js/app.js')}}"></script>
 @include('sweet::alert')
+</body>
+</html>

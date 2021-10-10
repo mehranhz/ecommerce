@@ -45,11 +45,14 @@ class Product extends Model
     public
     function specifications()
     {
-        $specifications = array_map(function ($specification) {
-            return explode(':', $specification);
-        },
-            explode("\n", $this->specifications));
-        return $specifications;
+       if ($this->specifications !==null){
+           $specifications = array_map(function ($specification) {
+               return explode(':', $specification);
+           },
+               explode("\n", $this->specifications));
+           return $specifications;
+       }
+       return null;
     }
 
     public

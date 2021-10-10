@@ -67,7 +67,7 @@ class ProductController extends Controller
             return view('product::frontend.mobile.mobileShow',compact('product','varieties','category','comments'));
         };
 
-        return view('product::frontend.show',compact('product','varieties','category'));
+        return view('product::frontend.show',compact('product','varieties','category','comments'));
     }
 
     public function category(Category $category){
