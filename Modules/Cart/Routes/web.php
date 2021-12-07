@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/test',function (){
+
+    return view('admin.test');
+});
+
 Route::prefix('cart')->group(function() {
     Route::get('/', 'CartController@index')->name('index');
     Route::get('/serialized', 'CartController@serialized')->name('serialized');

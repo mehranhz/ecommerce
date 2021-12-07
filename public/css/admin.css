@@ -1,13 +1,13 @@
 /* side bar container */
-aside{
-    background-color: #323235 !important;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 20% !important;
-    min-height: 100vh;
-    direction: rtl !important;
-}
+/*aside{*/
+/*    background-color: #323235 !important;*/
+/*    position: fixed;*/
+/*    right: 0;*/
+/*    top: 0;*/
+/*    width: 20% !important;*/
+/*    min-height: 100vh;*/
+/*    direction: rtl !important;*/
+/*}*/
 
  /* users info on sidebar*/
 .sidebar-user{
@@ -170,5 +170,36 @@ main {
     }
 }
 
+div.sidebar{
+    overflow-x:hidden;
+}
+.nav-item{
+    direction: rtl;
+    padding-right: 1rem;
 
-
+}
+.nav-link > i::before{
+    margin-right: 1rem;
+}
+.nav-link p{
+    padding-right: 1rem;
+}
+.main-sidebar{
+    right: 0;
+}
+.main-header{
+    margin-left:0 !important;
+    margin-right: 250px;
+    direction: rtl;
+}
+.content-wrapper{
+    margin-left: 0!important;
+    /*margin-right: 250px;*/
+}
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 0 !important;
+        margin-right: 4.6rem
+    !important;
+    }
+}
